@@ -1,0 +1,28 @@
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Suporte para o modo de cores forçadas (acessibilidade) */
+@media (forced-colors: active) {
+  a {
+    color: LinkText; /* Adapta links automaticamente no modo forçado */
+  }
+  body {
+    forced-color-adjust: auto; /* Permite que o navegador gerencie as cores */
+  }
+}
