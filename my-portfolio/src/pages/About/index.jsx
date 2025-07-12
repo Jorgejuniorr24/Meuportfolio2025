@@ -110,7 +110,7 @@ const AboutMe = () => {
       <div className="max-w-6xl mx-auto">
         {/* About Me Section */}
         <section className="mb-20">
-          <h1 className="text-6xl font-bold text-gray-800 mb-16 text-center">About Me</h1>
+          <h1 className="text-4xl font-bold text-gray-700 mb-16">About Me</h1>
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-lg text-gray-600 leading-relaxed">
               My name is Jorge Oliveira, and I am from Salvador, BA, Brazil. I hold a degree in Production 
@@ -126,7 +126,7 @@ const AboutMe = () => {
 
         {/* Hard Skills Section */}
         <section>
-          <h2 className="text-6xl font-bold text-gray-800 mb-16 text-center">Hard Skills</h2>
+          <h2 className="text-4xl font-bold text-gray-700 mb-16 text-center">Hard Skills</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
             {skills.map((skill, index) => (
               <div key={skill.name} className="flex flex-col items-center text-center">

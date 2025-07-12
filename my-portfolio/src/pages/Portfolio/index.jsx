@@ -33,7 +33,7 @@ const Portfolio = () => {
   return (
     <div className="bg-gray-50 pt-16 px-8 pb-6">
       <div className="max-w-5xl mx-auto">
-        <h1 className="text-5xl font-bold text-gray-800 mb-12 text-left">My Portfolio</h1>
+        <h1 className="text-4xl font-bold text-gray-700 mb-16">My Portfolio</h1>
 
         <div className="grid grid-cols-4 gap-4 mb-4">
           {projectsTop.map(renderCard)}
