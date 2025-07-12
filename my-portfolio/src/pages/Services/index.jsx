@@ -2,11 +2,10 @@ import React from 'react';
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-gray-50 pt-32 px-8 pb-20"> {/* pt-32 afasta da seção anterior */}
-
+    <div className="min-h-screen bg-gray-50 pt-32 px-8 pb-20">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <h1 className="text-4xl font-bold text-gray-700 mb-16">Services</h1> {/* Espaço extra abaixo do título */}
+        <h1 className="text-4xl font-bold text-gray-700 mb-16">Services</h1>
         
         {/* Cards Container */}
         <div className="flex flex-wrap gap-10 justify-center">
