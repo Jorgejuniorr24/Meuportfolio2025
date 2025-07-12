@@ -1,0 +1,50 @@
+import React from 'react';
+
+const Portfolio = () => {
+  const projectsTop = [
+    { title: 'Restaurant Website', color: 'bg-slate-600' },
+    { title: 'E-Commerce System', color: 'bg-slate-600' },
+    { title: 'Landing Page', color: 'bg-slate-600' },
+    { title: 'Personal Finance Application', color: 'bg-slate-600' }
+  ];
+
+  const projectsBottom = [
+    { title: 'RPA (Robotic Process Automation) for Businesses', color: 'bg-gray-300', textColor: 'text-black' },
+    { title: 'Customer Service Bots', color: 'bg-slate-600' },
+    { title: 'ERP for Medical Clinics', color: 'bg-slate-600' },
+    { title: 'ERP for Supplies Commerce', color: 'bg-slate-600' },
+    { title: 'ERP for Beauty Salons & Barbershops', color: 'bg-slate-600' },
+    { title: 'Micro SaaS', color: 'bg-gray-300', textColor: 'text-black' }
+  ];
+
+  const renderCard = (project, index) => (
+    <div
+      key={index}
+      className={`${project.color} rounded-xl p-6 h-32 flex items-center justify-center`}
+    >
+      <h2
+        className={`${project.textColor || 'text-white'} text-sm font-medium text-center leading-tight`}
+      >
+        {project.title}
+      </h2>
+    </div>
+  );
+
+  return (
+    <div className="bg-gray-50 pt-16 px-8 pb-6">
+      <div className="max-w-5xl mx-auto">
+        <h1 className="text-5xl font-bold text-gray-800 mb-12 text-left">My Portfolio</h1>
+
+        <div className="grid grid-cols-4 gap-4 mb-4">
+          {projectsTop.map(renderCard)}
+        </div>
+
+        <div className="grid grid-cols-3 gap-4">
+          {projectsBottom.map(renderCard)}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Portfolio;
