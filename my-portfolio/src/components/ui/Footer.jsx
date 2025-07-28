@@ -42,7 +42,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <div className="pt-6 border-t border-gray-800 text-center text-gray-400 text-sm w-full">
-            <p>&copy; {new Date().getFullYear()} Jorge Oliveira. Todos os direitos reservados.</p>
+            <p>&copy; {new Date().getFullYear()} Todos os direitos reservados.</p>
           </div>
         </div>
       </div>
