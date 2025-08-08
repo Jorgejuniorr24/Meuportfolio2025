@@ -1,10 +1,10 @@
-import Header from './components/ui/Header';
+import Header from "./components/ui/Header";
 import Footer from "./components/ui/Footer";
-import Home from "./pages/Home"; 
+import Home from "./pages/Home";
 
 function App() {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 text-gray-900 scroll-smooth">
+    <div className="flex flex-col min-h-screen bg-[#0B1120] text-white scroll-smooth">
       <Header />
       <main className="flex-grow">
         <Home />

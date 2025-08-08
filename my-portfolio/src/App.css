@@ -1,28 +1,26 @@
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: transparent;
+  --foreground: inherit;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: transparent;
+    --foreground: inherit;
   }
 }
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background: transparent; /* <- IMPORTANTÍSSIMO */
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* Suporte para o modo de cores forçadas (acessibilidade) */
 @media (forced-colors: active) {
   a {
-    color: LinkText; /* Adapta links automaticamente no modo forçado */
+    color: LinkText;
   }
   body {
-    forced-color-adjust: auto; /* Permite que o navegador gerencie as cores */
+    forced-color-adjust: auto;
   }
 }

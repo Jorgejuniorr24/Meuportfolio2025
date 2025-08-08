@@ -1,14 +1,35 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 :root {
   --primary-color: #445964;
   --dark-gray: #263138;
-  
+}
+
+/* Fundo global igual ao das seções escuras */
+html,
+body,
+#root {
+  background-color: #0b1120;
+}
+
+/* hr nunca aparece */
+hr {
+  display: none;
+  border: 0;
+  height: 0;
+}
+
+/* Classe utilitária para evitar “faixa” entre seções */
+.section-no-gap {
+  /* evita margem colapsar e corrige serrilhado de subpixel */
+  margin-top: -1px;
+  border-top: 1px solid transparent;
+  background-clip: padding-box;
 }

@@ -1,12 +1,15 @@
 // src/main.jsx
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import RouterManager from "./router";
-// Importe o RouterManager
 
-createRoot(document.getElementById('root')).render(
+// ORDEM IMPORTANTE DOS CSS:
+import "./index.css";
+import "./App.css";
+import "./global.css";
+
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterManager /> {/* Substitua App por RouterManager */}
+    <RouterManager />
   </StrictMode>
-)
+);

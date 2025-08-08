@@ -1,12 +1,12 @@
-import Hero from '../../components/ui/Hero';
-import AboutMe from '../About';
-import Portfolio from '../Portfolio';
-import ServicesPage from '../Services';
-import ContactPage from '../Contact'; // 👈 mover pra cima
+import Hero from "../../components/ui/Hero";
+import AboutMe from "../About";
+import Portfolio from "../Portfolio";
+import ServicesPage from "../Services";
+import ContactPage from "../Contact"; // 👈 mover pra cima
 
 const Home = () => {
   return (
-    <div className="w-full bg-gray-50 text-gray-900">
+    <div className="w-full bg-gray-50 dark:bg-[#0B1120] text-gray-900 dark:text-white">
       {/* Hero Section */}
       <section id="home">
         <Hero />

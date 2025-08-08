@@ -55,7 +55,6 @@ const ServiceCard = ({ service, onCardClick }) => {
         }
       }}
     >
-      {/* Header com ícone e título */}
       <div className="flex flex-col items-center gap-4">
         <div
           className={`${iconColor} p-2 rounded-lg bg-white/10 dark:bg-black/20`}
@@ -65,7 +64,6 @@ const ServiceCard = ({ service, onCardClick }) => {
         <h2 className="text-2xl font-semibold text-center">{title}</h2>
       </div>
 
-      {/* Descrição */}
       <p className="text-base text-gray-600 dark:text-gray-300 text-center leading-relaxed">
         {description}
       </p>
@@ -79,16 +77,14 @@ export default function ServicesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0B1120] pt-32 px-8 pb-20 transition-colors duration-300">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0B1120] pt-32 px-8 pb-20 transition-colors duration-300 border-none">
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
         <header className="mb-16 text-center">
           <h1 className="text-4xl font-bold text-gray-700 dark:text-white mb-4">
             Services
           </h1>
         </header>
 
-        {/* Services Grid */}
         <section>
           <div className="flex flex-wrap gap-10 justify-center">
             {servicesData.map((service) => (
