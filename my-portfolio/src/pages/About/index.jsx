@@ -1,186 +1,257 @@
-import React from "react";
+// src/pages/About/index.jsx
+import React, { useState, useEffect } from "react";
+
+const ProgressItem = ({ label, value, selected, onSelect, delay = 0 }) => {
+  const [animatedValue, setAnimatedValue] = useState(0);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimatedValue(value);
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+
+  const handleKey = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onSelect?.(label);
+    }
+  };
+
+  return (
+    <div className="group relative overflow-hidden rounded-2xl">
+      {/* tapete azul sempre visível com gradiente mais suave */}
+      <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/8 via-blue-500/6 to-indigo-500/8" />
+
+      {/* anel extra quando selecionado com glow effect */}
+      {selected && (
+        <>
+          <div className="pointer-events-none absolute inset-0 rounded-2xl ring-2 ring-blue-400/40 animate-pulse" />
+          <div className="pointer-events-none absolute inset-0 rounded-2xl bg-blue-500/5" />
+        </>
+      )}
+
+      {/* pill com fundo e borda aprimorada */}
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={() => onSelect?.(label)}
+        onKeyDown={handleKey}
+        className={`relative z-10 flex items-center justify-between px-5 py-4 rounded-2xl transition-all duration-300 cursor-pointer backdrop-blur-sm
+          ${
+            selected
+              ? "bg-[#1e293b]/90 border border-blue-400/40 shadow-lg shadow-blue-500/10"
+              : "bg-[#0f172a]/80 border border-white/8 hover:bg-[#1e293b]/60 hover:border-white/12"
+          }
+        `}
+      >
+        <span
+          className={`text-base font-medium transition-colors duration-300 ${
+            selected ? "text-slate-100" : "text-slate-200"
+          }`}
+        >
+          {label}
+        </span>
+
+        <div className="flex items-center gap-5 w-3/5 md:w-1/2">
+          {/* trilha da barra de progresso */}
+          <div
+            className={`relative flex-1 h-3 rounded-full overflow-hidden transition-all duration-300 ${
+              selected
+                ? "bg-slate-800/90 ring-1 ring-blue-500/20"
+                : "bg-slate-800/70"
+            }`}
+          >
+            {/* barra de progresso com gradiente aprimorado */}
+            <div
+              className={`absolute inset-y-0 left-0 rounded-full transition-all duration-1000 ease-out
+                          bg-gradient-to-r from-blue-500 via-blue-400 to-indigo-500
+                          ${
+                            selected
+                              ? "brightness-110 saturate-125 shadow-lg shadow-blue-500/30"
+                              : "group-hover:brightness-105"
+                          }`}
+              style={{
+                width: `${animatedValue}%`,
+                transform: selected ? "scaleY(1.1)" : "scaleY(1)",
+              }}
+            >
+              {/* efeito de brilho animado */}
+              <div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent 
+                           w-1/3 animate-pulse"
+                style={{
+                  animationDuration: "2s",
+                  animationDelay: `${delay}ms`,
+                }}
+              />
+            </div>
+
+            {/* cap no final da barra */}
+            <div
+              className={`absolute top-0 h-full w-1.5 bg-slate-900/60 rounded-r-full transition-all duration-300 ${
+                selected ? "bg-slate-900/80" : ""
+              }`}
+              style={{ right: `calc(100% - ${animatedValue}%)` }}
+            />
+          </div>
+
+          {/* porcentagem com estilo aprimorado */}
+          <span
+            className={`text-xs font-bold tracking-wide transition-all duration-300 ${
+              selected
+                ? "text-blue-300 scale-105"
+                : "text-blue-400/90 group-hover:text-blue-300"
+            }`}
+          >
+            {value}%
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const CardContainer = ({ children, className = "" }) => (
+  <div
+    className={`
+      relative overflow-hidden
+      rounded-2xl bg-[#0f172a] border border-white/5
+      shadow-xl shadow-black/40 p-6 md:p-7
+      transition-all duration-200 ease-in-out
+      ${className}
+    `}
+  >
+    {children}
+  </div>
+);
+
+const SectionHeader = ({ title }) => (
+  <div className="flex items-center gap-4 mb-6">
+    <div className="w-3 h-3 rounded-sm bg-blue-500/80" />
+    <h3 className="text-xl md:text-2xl font-semibold text-slate-100">
+      {title}
+    </h3>
+  </div>
+);
 
 const AboutMe = () => {
-  const skills = [
-    {
-      name: "HTML5",
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-16 h-16">
-          <path
-            fill="#E34F26"
-            d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"
-          />
-        </svg>
-      ),
-    },
-    {
-      name: "CSS3",
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-16 h-16">
-          <path
-            fill="#1572B6"
-            d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"
-          />
-        </svg>
-      ),
-    },
-    {
-      name: "JavaScript",
-      icon: (
-        <div className="w-16 h-16 bg-yellow-400 rounded flex items-center justify-center">
-          <span className="text-black font-bold text-2xl">JS</span>
-        </div>
-      ),
-    },
-    {
-      name: "TypeScript",
-      icon: (
-        <div className="w-16 h-16 bg-blue-600 rounded flex items-center justify-center">
-          <span className="text-white font-bold text-2xl">TS</span>
-        </div>
-      ),
-    },
-    {
-      name: "React",
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-16 h-16">
-          <path
-            fill="#61DAFB"
-            d="M12 10.11c1.03 0 1.87.84 1.87 1.89s-.84 1.85-1.87 1.85-1.87-.82-1.87-1.85.84-1.89 1.87-1.89M7.37 20c.63.38 2.01-.2 3.6-1.7-.52-.59-1.03-1.23-1.51-1.9a22.7 22.7 0 0 1-2.4-.36c-.51 2.14-.32 3.61.31 3.96m.71-5.74l-.29-.51c-.11.29-.22.58-.29.86.27.06.57.11.88.16l-.3-.51m6.54-.76l.81-1.5-.81-1.5c-.3-.53-.62-1-.95-1.44a20.7 20.7 0 0 0-3.67 0c-.33.44-.65.91-.95 1.44l-.81 1.5.81 1.5c.3.53.62 1 .95 1.44.6.05 1.2.05 1.8.05s1.2 0 1.8-.05c.33-.44.65-.91.95-1.44M12 6.78c-.19.22-.39.45-.59.72h1.18c-.2-.27-.4-.5-.59-.72m0 10.44c.19-.22.39-.45.59-.72h-1.18c.2.27.4.5.59.72M16.62 4c-.62-.38-2 .2-3.59 1.7.52.59 1.03 1.23 1.51 1.9.82.08 1.63.2 2.4.36.51-2.14.32-3.61-.32-3.96m-.7 5.74l.29.51c.11-.29.22-.58.29-.86-.27-.06-.57-.11-.88-.16l.3.51m1.45-7.05c1.47.84 1.63 3.05 1.01 5.63 2.54.75 4.37 1.99 4.37 3.68s-1.83 2.93-4.37 3.68c.62 2.58.46 4.79-1.01 5.63-1.46.84-3.45-.12-5.37-1.95-1.92 1.83-3.91 2.79-5.37 1.95-1.47-.84-1.63-3.05-1.01-5.63-2.54-.75-4.37-1.99-4.37-3.68s1.83-2.93 4.37-3.68c-.62-2.58-.46-4.79 1.01-5.63 1.46-.84 3.45.12 5.37 1.95 1.92-1.83 3.91-2.79 5.37-1.95z"
-          />
-        </svg>
-      ),
-    },
-    {
-      name: "Bootstrap",
-      icon: (
-        <div className="w-16 h-16 bg-purple-600 rounded flex items-center justify-center">
-          <span className="text-white font-bold text-2xl">B</span>
-        </div>
-      ),
-    },
-    {
-      name: "Tailwind",
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-16 h-16">
-          <path
-            fill="#06B6D4"
-            d="M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z"
-          />
-        </svg>
-      ),
-    },
-    {
-      name: "Python",
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-16 h-16">
-          <path
-            fill="#3776AB"
-            d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6zm13.16 4.15l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09zm-6.47 14.25a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6z"
-          />
-        </svg>
-      ),
-    },
-    {
-      name: "Node.js",
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-16 h-16">
-          <path
-            fill="#339933"
-            d="M11.998 24c-.321 0-.641-.084-.922-.247l-2.936-1.737c-.438-.245-.224-.331-.08-.382.585-.203.703-.25 1.328-.604.065-.037.151-.023.218.017l2.256 1.339c.082.045.197.045.272 0l8.795-5.076c.082-.047.134-.141.134-.238V6.921c0-.099-.053-.192-.137-.242l-8.791-5.072c-.081-.047-.189-.047-.271 0L2.46 6.68c-.085.05-.139.143-.139.242v10.15c0 .097.054.189.139.235l2.409 1.392c1.307.654 2.108-.116 2.108-1.12V7.993c0-.14.114-.253.253-.253h1.104c.137 0 .253.113.253.253v9.589c0 1.669-.908 2.628-2.49 2.628-.486 0-.864 0-1.929-.525L1.718 18.37C1.438 18.227 1.25 17.909 1.25 17.57V7.421c0-.339.188-.657.468-.801l8.795-5.076c.271-.154.632-.154.906 0l8.794 5.076c.28.144.469.462.469.801v10.15c0 .337-.189.655-.469.799l-8.794 5.078c-.28.163-.601.247-.921.247z"
-          />
-        </svg>
-      ),
-    },
-    {
-      name: "MySQL",
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-16 h-16">
-          <path
-            fill="#4479A1"
-            d="M16.405 5.501c-.115 0-.193.014-.274.033v.013h.014c.054.104.146.18.214.273.054.107.1.214.154.32l.014-.015c.094-.066.14-.172.14-.333-.04-.047-.046-.094-.08-.14-.04-.067-.126-.1-.18-.15zM5.77 18.695h-.927a50.854 50.854 0 00-.27-4.41h-.008l-1.41 4.41H2.45l-1.4-4.41h-.01a72.892 72.892 0 00-.195 4.41H.002c.055-1.966.192-3.81.41-5.53h1.15c.297 1.32.684 2.684 1.002 4.09h.008c.313-1.336.675-2.758 1.002-4.09h1.15c.1.755.192 1.717.216 2.778.026 1.06.04 2.135.04 2.752zm6.73-5.522v.5c0 2.463-.787 3.672-2.312 3.672-1.17 0-1.846-.786-1.846-2.157 0-1.411.675-2.19 1.846-2.19.817 0 1.66.258 2.312.786v-.61zm-2.42 3.02c.675 0 1.017-.675 1.017-1.846 0-1.17-.342-1.846-1.017-1.846-.675 0-1.017.675-1.017 1.846 0 1.17.342 1.846 1.017 1.846zm7.618-2.205c0 1.183-.258 2.055-.771 2.598-.514.543-1.183.815-2.01.815-.825 0-1.496-.272-2.01-.815-.514-.543-.771-1.415-.771-2.598 0-1.183.258-2.055.771-2.598.514-.543 1.183-.815 2.01-.815.825 0 1.496.272 2.01.815.514.543.771 1.415.771 2.598zm-.917 0c0-1.67-.543-2.505-1.364-2.505-.82 0-1.363.836-1.363 2.505s.542 2.505 1.363 2.505c.82 0 1.364-.836 1.364-2.505zm3.866 2.83c-.514.543-1.183.815-2.01.815-.825 0-1.496-.272-2.01-.815-.514-.543-.771-1.415-.771-2.598 0-1.183.258-2.055.771-2.598.514-.543 1.183-.815 2.01-.815.825 0 1.496.272 2.01.815.514.543.771 1.415.771 2.598 0 1.183-.258 2.055-.771 2.598zM20.645 16.018c0-1.67-.543-2.505-1.364-2.505-.82 0-1.363.836-1.363 2.505s.542 2.505 1.363 2.505c.82 0 1.364-.836 1.364-2.505z"
-          />
-        </svg>
-      ),
-    },
-    {
-      name: "Git",
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-16 h-16">
-          <path
-            fill="#F05032"
-            d="M23.546 10.93L13.067.452c-.604-.603-1.582-.603-2.188 0L8.708 2.627l2.76 2.76c.645-.215 1.379-.07 1.889.441.516.515.658 1.258.438 1.9l2.658 2.66c.645-.223 1.387-.078 1.9.435.721.72.721 1.884 0 2.604-.719.719-1.881.719-2.6 0-.539-.541-.674-1.337-.404-1.996L12.86 8.955v6.525c.176.086.342.203.488.348.713.721.713 1.883 0 2.6-.719.721-1.889.721-2.609 0-.719-.719-.719-1.879 0-2.598.182-.18.387-.316.605-.406V8.835c-.217-.091-.424-.222-.6-.401-.545-.545-.676-1.342-.396-2.009L7.636 3.7.45 10.881c-.6.605-.6 1.584 0 2.189l10.480 10.477c.604.604 1.582.604 2.186 0l10.43-10.43c.605-.603.605-1.582 0-2.187"
-          />
-        </svg>
-      ),
-    },
-    {
-      name: "Figma",
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-16 h-16">
-          <path
-            fill="#F24E1E"
-            d="M15.852 8.981h-4.588V0h4.588c2.476 0 4.49 2.014 4.49 4.49s-2.014 4.491-4.49 4.491z"
-          />
-          <path
-            fill="#FF7262"
-            d="M12.264 0H7.676c-2.476 0-4.49 2.014-4.49 4.49s2.014 4.49 4.49 4.49h4.588V0z"
-          />
-          <path
-            fill="#1ABCFE"
-            d="M12.264 15.264H7.676c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588v8.98z"
-          />
-          <path
-            fill="#0ACF83"
-            d="M12.264 24H7.676c-2.476 0-4.49-2.014-4.49-4.49s2.014-4.49 4.49-4.49h4.588V24z"
-          />
-          <path
-            fill="#A259FF"
-            d="M12.264 15.264c0-2.476 2.014-4.49 4.49-4.49s4.49 2.014 4.49 4.49-2.014 4.49-4.49 4.49-4.49-2.014-4.49-4.49z"
-          />
-        </svg>
-      ),
-    },
-  ];
+  const [selected, setSelected] = useState(null);
+
+  const handleSelect = (label) => {
+    setSelected((cur) => (cur === label ? null : label));
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0B1120] py-16 px-4 text-gray-900 dark:text-white transition-colors duration-300">
       <div className="max-w-6xl mx-auto">
-        {/* About Me Section */}
+        {/* About Me */}
         <section className="mb-20">
           <h1 className="text-4xl font-bold mb-16 text-center">About Me</h1>
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-lg leading-relaxed font-normal">
-              My name is Jorge Oliveira, and I am from Salvador, BA, Brazil. I
-              hold a degree in Production Engineering and Systems Analysis and
-              Development, with an MBA in Project Management. I have experience
-              in front-end development using technologies such as Angular,
-              React, HTML, CSS, and JavaScript to create modern and dynamic
-              interfaces. In the back-end, I have knowledge of Python, Node.js,
-              SQL, and integration with RESTful APIs, always striving to deliver
-              efficient and scalable solutions. Additionally, I am familiar with
-              version control tools such as Git and GitHub, I have experience
-              with web application deployment, ensuring continuous and
-              high-quality delivery of projects.
+              My name is <strong>Jorge Oliveira</strong>, and I am from
+              Salvador, BA, Brazil. I hold a degree in Production Engineering
+              and Systems Analysis and Development, with an MBA in Project
+              Management. I have experience in front-end development using
+              technologies such as Angular, React, HTML, CSS, and JavaScript to
+              create modern and dynamic interfaces. In the back-end, I have
+              knowledge of Python, Node.js, SQL, and integration with RESTful
+              APIs, always striving to deliver efficient and scalable solutions.
+              Additionally, I am familiar with version control tools such as Git
+              and GitHub, I have experience with web application deployment,
+              ensuring continuous and high-quality delivery of projects.
             </p>
           </div>
         </section>
 
-        {/* Hard Skills Section */}
-        <section>
-          <h2 className="text-4xl font-bold mb-16 text-center">Hard Skills</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
-            {skills.map((skill) => (
-              <div
-                key={skill.name}
-                className="flex flex-col items-center text-center"
-              >
-                <div className="mb-4 flex items-center justify-center">
-                  {skill.icon}
-                </div>
-                <h3 className="text-lg font-semibold">{skill.name}</h3>
+        {/* Hard Skills */}
+        <section className="mt-10">
+          <h2 className="text-4xl font-bold mb-10 text-center">Hard Skills</h2>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-7">
+            {/* Frontend */}
+            <CardContainer>
+              <SectionHeader title="Frontend" />
+              <div className="space-y-4">
+                {[
+                  { label: "HTML5", value: 100 },
+                  { label: "CSS3", value: 100 },
+                  { label: "JavaScript", value: 100 },
+                  { label: "TypeScript", value: 50 },
+                  { label: "React", value: 70 },
+                  { label: "Angular", value: 50 },
+                  { label: "Next.js", value: 50 },
+                  { label: "Tailwind", value: 50 },
+                  { label: "Bootstrap", value: 50 },
+                ].map((skill, index) => (
+                  <ProgressItem
+                    key={skill.label}
+                    label={skill.label}
+                    value={skill.value}
+                    selected={selected === skill.label}
+                    onSelect={handleSelect}
+                    delay={index * 100}
+                  />
+                ))}
               </div>
-            ))}
+            </CardContainer>
+
+            {/* Ferramentas & Testing + Back End */}
+            <CardContainer>
+              <SectionHeader title="Ferramentas & Testing - Estudo em andamento" />
+              <div className="space-y-3">
+                {[
+                  { label: "Jest", value: 10 },
+                  { label: "Cypress", value: 10 },
+                  { label: "Git", value: 80 },
+                  { label: "Figma", value: 90 },
+                ].map((skill, index) => (
+                  <ProgressItem
+                    key={skill.label}
+                    label={skill.label}
+                    value={skill.value}
+                    selected={selected === skill.label}
+                    onSelect={handleSelect}
+                    delay={index * 100}
+                  />
+                ))}
+              </div>
+
+              <div className="my-7 h-px bg-white/10" />
+
+              <SectionHeader title="Back End — Estudo em andamento" />
+              <div className="space-y-4">
+                {[
+                  { label: "Node.js", value: 10 },
+                  { label: "PostgreSQL", value: 10 },
+                  { label: "Python", value: 10 },
+                ].map((skill, index) => (
+                  <ProgressItem
+                    key={skill.label}
+                    label={skill.label}
+                    value={skill.value}
+                    selected={selected === skill.label}
+                    onSelect={handleSelect}
+                    delay={index * 100}
+                  />
+                ))}
+              </div>
+            </CardContainer>
+
+            {/* DevOps */}
+            <CardContainer>
+              <SectionHeader title="DevOps & Cloud — Estudo em andamento" />
+              <div className="space-y-4">
+                <ProgressItem
+                  label="AWS"
+                  value={10}
+                  selected={selected === "AWS"}
+                  onSelect={handleSelect}
+                  delay={0}
+                />
+              </div>
+            </CardContainer>
           </div>
         </section>
       </div>
