@@ -94,7 +94,8 @@ const Footer = () => {
           <div className="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8">
             <div className="flex justify-center items-center">
               <p className="text-sm text-gray-400">
-                &copy; {currentYear} Jorge Junior. Todos os direitos reservados.
+                &copy; {currentYear} Jorge Oliveira. Todos os direitos
+                reservados.
               </p>
             </div>
           </div>

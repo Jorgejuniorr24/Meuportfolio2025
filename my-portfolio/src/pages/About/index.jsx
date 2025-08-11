@@ -18,13 +18,13 @@ const ProgressItem = ({ label, value, delay = 0 }) => {
   }, [value, delay]);
 
   const color = (v) =>
-    v >= 80
-      ? "bg-emerald-500"
-      : v >= 60
-      ? "bg-blue-500"
-      : v >= 40
-      ? "bg-amber-500"
-      : "bg-slate-400";
+    v >= 90
+      ? "bg-emerald-500" // Expert
+      : v >= 70
+      ? "bg-blue-500" // Advanced
+      : v >= 50
+      ? "bg-amber-500" // Intermediate
+      : "bg-slate-400"; // Learning
 
   return (
     <div>
@@ -116,28 +116,28 @@ I'm Jorge Oliveira, a full-stack developer from Salvador, Bahia, Brazil, passion
       id: "frontend",
       icon: Braces,
       title: "Front-End",
-      meta: " 2 anos",
+      meta: " Two Years",
       skills: [
-        { label: "HTML5", value: 95 },
-        { label: "CSS3", value: 100 },
-        { label: "JavaScript", value: 95 },
-        { label: "TypeScript", value: 70 },
-        { label: "React", value: 80 },
-        { label: "Next.js", value: 65 },
-        { label: "Angular", value: 60 },
+        { label: "HTML5", value: 90 },
+        { label: "CSS3", value: 90 },
+        { label: "JavaScript", value: 60 },
+        { label: "TypeScript", value: 40 },
+        { label: "React", value: 70 },
+        { label: "Next.js", value: 20 },
+        { label: "Angular", value: 40 },
       ],
-      defaultOpen: true,
+      defaultOpen: false,
     },
     {
       id: "design",
       icon: Palette,
       title: "Designer",
-      meta: "2 anos",
+      meta: "Two Years",
       skills: [
         { label: "Figma", value: 90 },
-        { label: "Tailwind CSS", value: 85 },
-        { label: "Bootstrap", value: 80 },
-        { label: "Responsive Design", value: 95 },
+        { label: "Tailwind CSS", value: 70 },
+        { label: "Bootstrap", value: 50 },
+        { label: "Responsive Design", value: 100 },
       ],
     },
 
@@ -145,36 +145,48 @@ I'm Jorge Oliveira, a full-stack developer from Salvador, Bahia, Brazil, passion
       id: "backend",
       icon: Server,
       title: "Back-End",
-      meta: "Menos que 1 ano",
+      meta: "Less than 1 year",
       skills: [
-        { label: "Node.js", value: 35 },
-        { label: "PostgreSQL", value: 30 },
-        { label: "Python", value: 25 },
-        { label: "REST APIs", value: 60 },
+        { label: "Node.js", value: 10 },
+        { label: "PostgreSQL", value: 10 },
+        { label: "Python", value: 10 },
+        { label: "REST APIs", value: 50 },
       ],
     },
     {
       id: "tools",
       icon: Wrench,
-      title: "Ferramentas",
-      meta: "Em evolução",
+      title: "Tools & Tests",
+      meta: "In progress",
       skills: [
-        { label: "Git", value: 85 },
-        { label: "GitHub", value: 85 },
-        { label: "Jest", value: 30 },
-        { label: "Cypress", value: 25 },
+        { label: "Git", value: 70 },
+        { label: "GitHub", value: 70 },
+        { label: "Jest", value: 10 },
+        { label: "Cypress", value: 10 },
       ],
     },
     {
       id: "cloud",
       icon: Cloud,
       title: "Cloud & Deploy",
-      meta: "Em evolução",
+      meta: "In progress",
       skills: [
-        { label: "AWS", value: 20 },
-        { label: "Vercel", value: 70 },
-        { label: "CI/CD", value: 25 },
+        { label: "AWS", value: 10 },
+        { label: "Vercel", value: 10 },
+        { label: "CI/CD", value: 10 },
       ],
+    },
+    {
+      id: "methodologies",
+      icon: Wrench, // pode trocar por outro ícone se quiser
+      title: "Methodologies & Management",
+      meta: "Project Management & Agile Practices",
+      skills: [
+        { label: "Scrum", value: 90 },
+        { label: "Kanban", value: 90 },
+        { label: "Agile Development", value: 90 },
+      ],
+      defaultOpen: false,
     },
   ];
 
@@ -226,21 +238,21 @@ I'm Jorge Oliveira, a full-stack developer from Salvador, Bahia, Brazil, passion
 
           {/* Legend */}
           <div className="mt-8 text-center">
-            <div className="inline-flex items-center gap-6 text-xs text-slate-600 dark:text-slate-400">
+            <div className="inline-flex items-center gap-6 text-sm text-slate-600 dark:text-slate-400">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-1 rounded-full bg-emerald-500"></div>
-                <span>Expert (80%+)</span>
+                <div className="w-4 h-2 rounded-full bg-emerald-500"></div>
+                <span>Expert (90%+)</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-1 rounded-full bg-blue-500"></div>
-                <span>Advanced (60%+)</span>
+                <div className="w-4 h-2 rounded-full bg-blue-500"></div>
+                <span>Advanced (70%+)</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-1 rounded-full bg-amber-500"></div>
-                <span>Intermediate (40%+)</span>
+                <div className="w-4 h-2 rounded-full bg-amber-500"></div>
+                <span>Intermediate (50%+)</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-3 h-1 rounded-full bg-slate-400"></div>
+                <div className="w-4 h-2 rounded-full bg-slate-400"></div>
                 <span>Learning</span>
               </div>
             </div>

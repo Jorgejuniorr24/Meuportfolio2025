@@ -260,13 +260,9 @@ export default function ContactPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-[#0B1120] dark:to-[#1a2332] p-4 sm:p-8 transition-all duration-300">
       <div className="max-w-4xl mx-auto">
         <header className="text-center mb-12">
-          <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent mb-4">
             Entre em Contato
           </h1>
-          <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl mx-auto leading-relaxed">
-            Preencha o formulário abaixo para esclarecer suas dúvidas e
-            começarmos seu projeto!
-          </p>
         </header>
 
         <div className="grid lg:grid-cols-3 gap-12">

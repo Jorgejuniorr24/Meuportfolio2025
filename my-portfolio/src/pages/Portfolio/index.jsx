@@ -221,11 +221,6 @@ const Portfolio = () => {
           </button>
 
           <h1 className="text-3xl md:text-4xl font-bold mb-3">My Portfolio</h1>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-sm">
-            Explore meus projetos mais recentes — de plataformas fintech a
-            soluções de automação. Cada card mantém seu colorido único com fundo
-            limpo e profissional.
-          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
