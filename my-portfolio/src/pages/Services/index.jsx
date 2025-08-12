@@ -187,7 +187,7 @@ const FeatureList = memo(({ features }) => (
     {features.map((feature, i) => (
       <div key={i} className="flex items-center gap-2">
         <CheckCircle2 className="w-3 h-3 text-green-500 flex-shrink-0" />
-        <span className="text-xs text-gray-600 dark:text-gray-400">
+        <span className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
           {feature}
         </span>
       </div>
@@ -258,7 +258,7 @@ const ServiceCard = memo(({ service, isActive, onHover, onLeave, index }) => {
 
       {/* Features */}
       <div className="mb-6">
-        <h4 className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wide">
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3 uppercase tracking-wide">
           Incluído:
         </h4>
         <FeatureList features={service.features} />
@@ -266,7 +266,7 @@ const ServiceCard = memo(({ service, isActive, onHover, onLeave, index }) => {
 
       {/* Skills */}
       <div className="mt-auto">
-        <h4 className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wide">
+        <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3 uppercase tracking-wide">
           Tecnologias:
         </h4>
         <div className="flex flex-wrap gap-2">
