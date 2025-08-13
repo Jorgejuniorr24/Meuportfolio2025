@@ -14,25 +14,34 @@ import {
   Server,
 } from "lucide-react";
 import PropTypes from "prop-types";
+import { useI18n } from "../../contexts/I18nContext"; // ajuste o caminho conforme sua estrutura
 
 /* =========================
-   DATA (ordem desejada)
+   DATA (ORDENADO)
 ========================= */
 
-const SERVICES = [
+const getServices = (t, language) => [
   {
     id: "ui-design",
-    title: "Design de Interface do Usuário",
-    subtitle: "Interfaces limpas, acessíveis e intuitivas",
+    title: t("services.uiDesign.title") || "Design de Interface do Usuário",
+    subtitle:
+      t("services.uiDesign.subtitle") ||
+      "Interfaces limpas, acessíveis e intuitivas",
     description:
+      t("services.uiDesign.description") ||
       "Interfaces no Figma com Design System, tokens e protótipos navegáveis. Hand-off organizado para desenvolvimento, consistência e acessibilidade.",
     icon: Palette,
     color: "purple",
-    skills: ["Figma", "Design System", "Prototipagem", "User Research"],
-    experience: "1+ ano",
-    projects: "10+ designs",
-    deliveryTime: "1–2 semanas",
-    features: [
+    skills: t("services.uiDesign.skills") || [
+      "Figma",
+      "Design System",
+      "Prototipagem",
+      "User Research",
+    ],
+    experience: t("services.uiDesign.experience") || "1+ ano",
+    projects: t("services.uiDesign.projects") || "10+ designs",
+    deliveryTime: t("services.uiDesign.deliveryTime") || "1–2 semanas",
+    features: t("services.uiDesign.features") || [
       "Design System",
       "Prototipagem interativa",
       "Tokens de design",
@@ -44,17 +53,27 @@ const SERVICES = [
   },
   {
     id: "fullstack-development",
-    title: "Desenvolvimento Full-Stack",
-    subtitle: "Aplicações web completas que escalam",
+    title: t("services.fullstack.title") || "Desenvolvimento Full-Stack",
+    subtitle:
+      t("services.fullstack.subtitle") ||
+      "Aplicações web completas que escalam",
     description:
+      t("services.fullstack.description") ||
       "Front-end com Angular, React e Next.js; back-end com Node.js/Python. Foco em performance, SEO, acessibilidade (WCAG) e arquitetura escalável. Integração de APIs e bancos de dados, pronto para CI/CD.",
     icon: Code2,
     color: "blue",
-    skills: ["Angular", "React", "Next.js", "TypeScript", "Node.js", "AWS"], // 6 itens (AWS incluído)
-    experience: "2+ anos",
-    projects: "27+ projetos",
-    deliveryTime: "3–5 semanas",
-    features: [
+    skills: t("services.fullstack.skills") || [
+      "Angular",
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "AWS",
+    ],
+    experience: t("services.fullstack.experience") || "2+ anos",
+    projects: t("services.fullstack.projects") || "27+ projetos",
+    deliveryTime: t("services.fullstack.deliveryTime") || "3–5 semanas",
+    features: t("services.fullstack.features") || [
       "Design responsivo e Core Web Vitals",
       "SEO para Next.js/Angular",
       "Acessibilidade (WCAG AA)",
@@ -66,17 +85,25 @@ const SERVICES = [
   },
   {
     id: "backend-development",
-    title: "Desenvolvimento Back-end",
-    subtitle: "APIs rápidas, seguras e bem documentadas",
+    title: t("services.backend.title") || "Desenvolvimento Back-end",
+    subtitle:
+      t("services.backend.subtitle") ||
+      "APIs rápidas, seguras e bem documentadas",
     description:
+      t("services.backend.description") ||
       "RESTful APIs em Node.js com PostgreSQL/MongoDB e cache, priorizando segurança, escalabilidade e testes. Documentação OpenAPI/Swagger e monitoramento.",
     icon: Server,
     color: "green",
-    skills: ["Node.js", "Python", "PostgreSQL", "JWT"],
-    experience: "1+ ano",
-    projects: "8+ projetos",
-    deliveryTime: "2–4 semanas",
-    features: [
+    skills: t("services.backend.skills") || [
+      "Node.js",
+      "Python",
+      "PostgreSQL",
+      "JWT",
+    ],
+    experience: t("services.backend.experience") || "1+ ano",
+    projects: t("services.backend.projects") || "8+ projetos",
+    deliveryTime: t("services.backend.deliveryTime") || "2–4 semanas",
+    features: t("services.backend.features") || [
       "Modelagem de dados",
       "Autorização por papéis (RBAC)",
       "Validação e rate limit",
@@ -185,15 +212,17 @@ Badge.propTypes = {
 const FeatureList = memo(({ features }) => (
   <div className="space-y-2">
     {features.map((feature, i) => (
-      <div key={i} className="flex items-center gap-2">
-        <CheckCircle2 className="w-3 h-3 text-green-500 flex-shrink-0" />
-        <span className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-          {feature}
-        </span>
+      <div
+        key={i}
+        className="flex items-center gap-2 text-[#374151] dark:text-[#CBD5E1]"
+      >
+        <CheckCircle2 className="w-4 h-4 flex-shrink-0 text-green-500 stroke-[1.5]" />
+        <span className="text-sm leading-relaxed">{feature}</span>
       </div>
     ))}
   </div>
 ));
+
 FeatureList.displayName = "FeatureList";
 FeatureList.propTypes = {
   features: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -213,9 +242,7 @@ const ServiceCard = memo(({ service, isActive, onHover, onLeave, index }) => {
       ref={cardRef}
       onMouseEnter={() => onHover(service.id)}
       onMouseLeave={onLeave}
-      className={`
-        h-full flex flex-col
-        relative p-6 rounded-xl border-2 bg-white dark:bg-gray-800
+      className={`h-full flex flex-col relative p-6 rounded-xl border-2 bg-white dark:bg-gray-800
         transition-all duration-300 group
         ${theme.border} ${theme.bg}
         ${
@@ -259,7 +286,7 @@ const ServiceCard = memo(({ service, isActive, onHover, onLeave, index }) => {
       {/* Features */}
       <div className="mb-6">
         <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3 uppercase tracking-wide">
-          Incluído:
+          {service.featuresTitle || "Incluído:"}
         </h4>
         <FeatureList features={service.features} />
       </div>
@@ -267,7 +294,7 @@ const ServiceCard = memo(({ service, isActive, onHover, onLeave, index }) => {
       {/* Skills */}
       <div className="mt-auto">
         <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3 uppercase tracking-wide">
-          Tecnologias:
+          {service.skillsTitle || "Tecnologias:"}
         </h4>
         <div className="flex flex-wrap gap-2">
           {service.skills.slice(0, 6).map((skill, i) => (
@@ -301,6 +328,9 @@ const Services = memo(() => {
   const [headerRef, isHeaderVisible] = useIntersectionObserver();
   const { trackServiceView } = useServiceAnalytics();
 
+  // Aqui uso o I18n para pegar função t e idioma atual
+  const { t, language } = useI18n();
+
   const handleServiceHover = useCallback(
     (serviceId) => {
       setHoveredService(serviceId);
@@ -311,8 +341,11 @@ const Services = memo(() => {
 
   const handleServiceLeave = useCallback(() => setHoveredService(null), []);
 
-  // Mantém a ordem do array
-  const servicesOrdered = useMemo(() => SERVICES, []);
+  // Gera serviços já traduzidos conforme o idioma
+  const servicesOrdered = useMemo(
+    () => getServices(t, language),
+    [t, language]
+  );
 
   return (
     <div className="bg-gray-50 dark:bg-[#0B1120] min-h-screen pt-20 pb-16 px-4 transition-colors duration-300">
@@ -327,20 +360,20 @@ const Services = memo(() => {
         >
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Como posso ajudar seu projeto
+              {t("services.pageTitle") || "Como posso ajudar seu projeto"}
             </span>
           </h1>
 
           <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-            Desenvolvimento full-stack com foco em performance, acessibilidade e
-            escala.
+            {t("services.pageDescription") ||
+              "Desenvolvimento full-stack com foco em performance, acessibilidade e escala."}
           </p>
         </header>
 
         <section
           className="grid grid-cols-1 lg:grid-cols-3 auto-rows-fr gap-8"
           role="region"
-          aria-label="Lista de serviços oferecidos"
+          aria-label={t("services.ariaLabel") || "Lista de serviços oferecidos"}
         >
           {servicesOrdered.map((service, index) => (
             <ServiceCard

@@ -2,8 +2,12 @@ import { Typewriter } from "react-simple-typewriter";
 import Button from "./Button";
 import SocialIcons from "./SocialIcons";
 import profilePic from "../../assets/images/Jorge-image.jpg";
+import { useI18n } from "../../contexts/I18nContext";
 
 const Hero = () => {
+  const { t, messages } = useI18n();
+  const roles = messages.hero.roles; // array já no idioma atual
+
   return (
     <section
       id="home"
@@ -15,21 +19,18 @@ const Hero = () => {
         {/* Coluna Esquerda */}
         <div className="space-y-4 text-center lg:text-left">
           <p className="text-2xl font-bold text-gray-800 dark:text-gray-200">
-            Hello, it’s me
+            {t("hero.hello")}
           </p>
+
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-            Jorge Oliveira
+            {t("hero.name")}
           </h1>
 
           <h2 className="text-2xl font-semibold leading-tight text-gray-700 dark:text-gray-300">
-            And I’m a{" "}
+            {t("hero.im")}
             <span className="text-blue-900 dark:text-[#3DD9C1] drop-shadow-lg">
               <Typewriter
-                words={[
-                  "Front-End Developer",
-                  "Back-End Developer",
-                  "FullStack Developer",
-                ]}
+                words={roles}
                 loop={0}
                 cursor
                 cursorStyle="|"
@@ -41,8 +42,7 @@ const Hero = () => {
           </h2>
 
           <p className="text-base font-normal text-gray-600 dark:text-gray-400 max-w-lg mx-auto lg:mx-0 mt-5">
-            Each well-crafted application is a testament to how technology can
-            positively transform lives.
+            {t("hero.pitch")}
           </p>
 
           <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 pt-6">
@@ -56,8 +56,9 @@ const Hero = () => {
                          transform hover:scale-105 
                          transition-all duration-300 text-center"
             >
-              About Me
+              {t("hero.aboutMe")}
             </a>
+
             <a
               href="/curriculo.pdf"
               download
@@ -69,7 +70,7 @@ const Hero = () => {
                          transform hover:scale-105 
                          transition-all duration-300 text-center"
             >
-              Download Resume
+              {t("hero.download")}
             </a>
           </div>
 

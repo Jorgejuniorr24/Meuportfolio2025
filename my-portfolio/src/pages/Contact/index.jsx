@@ -8,6 +8,7 @@ import {
   AlertCircle,
   Loader,
 } from "lucide-react";
+import { useI18n } from "../../contexts/I18nContext";
 
 /* -------------------- Validações -------------------- */
 const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -88,7 +89,6 @@ const ContactIcon = ({
   title,
   subtitle,
   href,
-  // passe uma dessas: "bg-slate-600" | "bg-indigo-600" | "bg-emerald-600"
   bgColor = "bg-indigo-600",
   hoverColor = "hover:text-indigo-600 dark:hover:text-indigo-400",
 }) => {
@@ -98,7 +98,6 @@ const ContactIcon = ({
         href ? hoverColor : ""
       } transition-colors duration-200`}
     >
-      {/* mantém a MESMA cor no light e no dark */}
       <div
         className={`w-14 h-14 ${bgColor} rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg hover:shadow-xl transition-shadow duration-200`}
       >
@@ -135,6 +134,8 @@ const ContactIcon = ({
 
 /* -------------------- Página de Contato -------------------- */
 export default function ContactPage() {
+  const { t } = useI18n();
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -144,29 +145,39 @@ export default function ContactPage() {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
+  const [submitStatus, setSubmitStatus] = useState(null);
 
-  const validateField = useCallback((name, value) => {
-    switch (name) {
-      case "firstName":
-      case "lastName":
-        return value.trim().length < 2
-          ? "Deve ter pelo menos 2 caracteres"
-          : "";
-      case "email":
-        if (!value.trim()) return "Email é obrigatório";
-        return !validateEmail(value) ? "Email inválido" : "";
-      case "phone":
-        if (!value.trim()) return "Telefone é obrigatório";
-        return !validatePhone(value) ? "Telefone inválido" : "";
-      case "message":
-        return value.trim().length < 10
-          ? "Mensagem deve ter pelo menos 10 caracteres"
-          : "";
-      default:
-        return "";
-    }
-  }, []);
+  const validateField = useCallback(
+    (name, value) => {
+      switch (name) {
+        case "firstName":
+          return value.trim().length < 2
+            ? t("contact.form.errors.firstName")
+            : "";
+        case "lastName":
+          return value.trim().length < 2
+            ? t("contact.form.errors.lastName")
+            : "";
+        case "email":
+          if (!value.trim()) return t("contact.form.errors.emailRequired");
+          return !validateEmail(value)
+            ? t("contact.form.errors.emailInvalid")
+            : "";
+        case "phone":
+          if (!value.trim()) return t("contact.form.errors.phoneRequired");
+          return !validatePhone(value)
+            ? t("contact.form.errors.phoneInvalid")
+            : "";
+        case "message":
+          return value.trim().length < 10
+            ? t("contact.form.errors.message")
+            : "";
+        default:
+          return "";
+      }
+    },
+    [t]
+  );
 
   const handleChange = useCallback(
     (e) => {
@@ -246,7 +257,7 @@ export default function ContactPage() {
         {/* Título */}
         <header className="text-center mb-12">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-            Entre em Contato
+            {t("contact.pageTitle")}
           </h1>
         </header>
 
@@ -257,17 +268,14 @@ export default function ContactPage() {
               {submitStatus === "success" && (
                 <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-center text-green-800 dark:text-green-200 text-sm">
                   <CheckCircle className="w-5 h-5 mr-3 flex-shrink-0" />
-                  <span>
-                    Mensagem enviada com sucesso! Entraremos em contato em
-                    breve.
-                  </span>
+                  <span>{t("contact.success")}</span>
                 </div>
               )}
 
               {submitStatus === "error" && (
                 <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center text-red-800 dark:text-red-200 text-sm">
                   <AlertCircle className="w-5 h-5 mr-3 flex-shrink-0" />
-                  <span>Erro ao enviar mensagem. Tente novamente.</span>
+                  <span>{t("contact.error")}</span>
                 </div>
               )}
 
@@ -275,7 +283,7 @@ export default function ContactPage() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <FormField
                     name="firstName"
-                    placeholder="Nome *"
+                    placeholder={t("contact.form.firstName")}
                     value={formData.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -284,7 +292,7 @@ export default function ContactPage() {
                   />
                   <FormField
                     name="lastName"
-                    placeholder="Sobrenome *"
+                    placeholder={t("contact.form.lastName")}
                     value={formData.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -296,7 +304,7 @@ export default function ContactPage() {
                 <FormField
                   type="email"
                   name="email"
-                  placeholder="Email *"
+                  placeholder={t("contact.form.email")}
                   value={formData.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -306,7 +314,7 @@ export default function ContactPage() {
                 <FormField
                   type="tel"
                   name="phone"
-                  placeholder="Telefone * (ex: (71) 99999-9999)"
+                  placeholder={t("contact.form.phone")}
                   value={formData.phone}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -316,7 +324,7 @@ export default function ContactPage() {
                 <FormField
                   type="textarea"
                   name="message"
-                  placeholder="Mensagem * (descreva seu projeto ou dúvidas)"
+                  placeholder={t("contact.form.message")}
                   value={formData.message}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -334,12 +342,12 @@ export default function ContactPage() {
                   {isSubmitting ? (
                     <>
                       <Loader className="w-5 h-5 animate-spin" />
-                      <span>Enviando...</span>
+                      <span>{t("contact.form.sending")}</span>
                     </>
                   ) : (
                     <>
                       <Send className="w-5 h-5" />
-                      <span>Enviar Mensagem</span>
+                      <span>{t("contact.form.send")}</span>
                     </>
                   )}
                 </button>
@@ -347,33 +355,33 @@ export default function ContactPage() {
             </div>
           </div>
 
-          {/* Informações de Contato (cores mantidas no dark) */}
+          {/* Informações de Contato */}
           <div className="space-y-8">
             <div className="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6">
               <h2 className="text-2xl font-semibold text-slate-800 dark:text-white mb-6 text-center">
-                Outras formas de contato
+                {t("contact.otherContact")}
               </h2>
 
               <div className="space-y-8">
                 <ContactIcon
                   icon={MapPin}
-                  title="Localização"
-                  subtitle="Salvador - Bahia - Brasil"
-                  bgColor="bg-slate-600" // cinza-ardósia
+                  title={t("contact.location")}
+                  subtitle={t("contact.locationValue")}
+                  bgColor="bg-slate-600"
                 />
                 <ContactIcon
                   icon={Mail}
-                  title="Email"
+                  title={t("contact.email")}
                   subtitle="jorge.juniortwo@hotmail.com"
                   href="mailto:jorge.juniortwo@hotmail.com"
-                  bgColor="bg-indigo-600" // indigo
+                  bgColor="bg-indigo-600"
                 />
                 <ContactIcon
                   icon={Phone}
-                  title="WhatsApp"
+                  title={t("contact.whatsapp")}
                   subtitle="(+55) 71 99289-6908"
                   href="https://wa.me/5571992896908"
-                  bgColor="bg-emerald-600" // verde esmeralda
+                  bgColor="bg-emerald-600"
                 />
               </div>
             </div>
