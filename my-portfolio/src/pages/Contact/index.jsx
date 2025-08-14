@@ -83,58 +83,59 @@ const FormField = ({
   );
 };
 
-/* -------------------- Card de Contato -------------------- */
-const ContactIcon = ({
+/* -------------------- Item do Card de Contato -------------------- */
+const ContactItem = ({
   icon: Icon,
   title,
   subtitle,
   href,
   bgColor = "bg-indigo-600",
-  hoverColor = "hover:text-indigo-600 dark:hover:text-indigo-400",
 }) => {
-  const content = (
-    <div
-      className={`text-center ${
-        href ? hoverColor : ""
-      } transition-colors duration-200`}
+  const Wrapper = href ? "a" : "div";
+  const wrapperProps = href
+    ? {
+        href,
+        target: href.startsWith("http") ? "_blank" : undefined,
+        rel: href.startsWith("http") ? "noopener noreferrer" : undefined,
+        "aria-label": title,
+      }
+    : {};
+
+  return (
+    <Wrapper
+      {...wrapperProps}
+      className="group block text-center focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-xl"
     >
-      <div
-        className={`w-14 h-14 ${bgColor} rounded-xl flex items-center justify-center mx-auto mb-3 shadow-lg hover:shadow-xl transition-shadow duration-200`}
-      >
-        <Icon className="w-7 h-7 text-white" />
+      <div className="w-14 h-14 mx-auto mb-3 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow duration-200">
+        <div
+          className={`w-14 h-14 ${bgColor} rounded-xl flex items-center justify-center`}
+        >
+          <Icon className="w-7 h-7 text-white" />
+        </div>
       </div>
-      <p className="text-base font-semibold text-slate-800 dark:text-white mb-1">
+
+      <p className="text-base font-semibold text-slate-800 dark:text-slate-100">
         {title}
       </p>
-      <p
-        className={`text-sm text-slate-600 dark:text-white ${
-          href
-            ? "underline decoration-transparent hover:decoration-inherit"
-            : ""
-        }`}
-      >
+      <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
         {subtitle}
       </p>
-    </div>
-  );
-
-  return href ? (
-    <a
-      href={href}
-      target={href.startsWith("http") ? "_blank" : undefined}
-      rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-      className="block"
-    >
-      {content}
-    </a>
-  ) : (
-    content
+    </Wrapper>
   );
 };
 
 /* -------------------- Página de Contato -------------------- */
 export default function ContactPage() {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
+
+  // Helper de tradução com fallback quando a chave não existe
+  const tr = React.useCallback(
+    (key, fallback) => {
+      const val = t(key);
+      return val === key ? fallback : val;
+    },
+    [t]
+  );
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -147,36 +148,119 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
 
+  // Textos i18n
+  const i18nText = {
+    // Título/descrição da página
+    pageTitle: tr(
+      "contact.pageTitle",
+      language === "en" ? "Get in touch" : "Entre em Contato"
+    ),
+    pageDescription: tr(
+      "contact.pageDescription",
+      language === "en"
+        ? "Contact me to start your project or ask questions."
+        : "Fale comigo para iniciar seu projeto ou tirar dúvidas."
+    ),
+    // Placeholders
+    firstNamePh: tr(
+      "contact.form.firstName",
+      language === "en" ? "First name *" : "Nome *"
+    ),
+    lastNamePh: tr(
+      "contact.form.lastName",
+      language === "en" ? "Last name *" : "Sobrenome *"
+    ),
+    emailPh: tr(
+      "contact.form.email",
+      language === "en" ? "Your email" : "Email *"
+    ),
+    phonePh:
+      language === "en"
+        ? tr("contact.form.phone", "Phone * (e.g., +1 555 123-4567)")
+        : tr("contact.form.phone", "Telefone * (ex: (71) 99999-9999)"),
+    messagePh: tr(
+      "contact.form.message",
+      language === "en"
+        ? "Your message"
+        : "Mensagem * (descreva seu projeto ou dúvidas)"
+    ),
+    // Botões/estados
+    send: tr("contact.form.send", language === "en" ? "Send" : "Enviar"),
+    sending: tr(
+      "contact.form.sending",
+      language === "en" ? "Sending..." : "Enviando..."
+    ),
+    successMsg: tr(
+      "contact.form.success",
+      language === "en"
+        ? "Message sent successfully! We'll get back to you soon."
+        : "Mensagem enviada com sucesso! Entraremos em contato em breve."
+    ),
+    errorMsg: tr(
+      "contact.form.error",
+      language === "en"
+        ? "Error sending message. Please try again."
+        : "Erro ao enviar mensagem. Tente novamente."
+    ),
+    // Card lateral (agora 100% i18n)
+    otherContactsTitle: tr(
+      "contact.social.title",
+      language === "en" ? "Other contact options" : "Outras formas de contato"
+    ),
+    locationTitle: tr(
+      "contact.info.locationTitle",
+      language === "en" ? "Location" : "Localização"
+    ),
+    locationValue: tr(
+      "contact.info.location",
+      language === "en"
+        ? "Salvador - Bahia - Brazil"
+        : "Salvador - Bahia - Brasil"
+    ),
+    emailTitle: tr(
+      "contact.info.emailTitle",
+      language === "en" ? "Email" : "Email"
+    ),
+    whatsappTitle: tr("contact.info.whatsappTitle", "WhatsApp"),
+  };
+
+  // Mensagens de validação traduzidas
+  const v = {
+    min2:
+      language === "en"
+        ? "Must be at least 2 characters"
+        : "Deve ter pelo menos 2 caracteres",
+    emailRequired:
+      language === "en" ? "Email is required" : "Email é obrigatório",
+    emailInvalid: language === "en" ? "Invalid email" : "Email inválido",
+    phoneRequired:
+      language === "en" ? "Phone is required" : "Telefone é obrigatório",
+    phoneInvalid: language === "en" ? "Invalid phone" : "Telefone inválido",
+    msgMin10:
+      language === "en"
+        ? "Message must be at least 10 characters"
+        : "Mensagem deve ter pelo menos 10 caracteres",
+  };
+
   const validateField = useCallback(
     (name, value) => {
       switch (name) {
         case "firstName":
-          return value.trim().length < 2
-            ? t("contact.form.errors.firstName")
-            : "";
         case "lastName":
-          return value.trim().length < 2
-            ? t("contact.form.errors.lastName")
-            : "";
+          return value.trim().length < 2 ? v.min2 : "";
         case "email":
-          if (!value.trim()) return t("contact.form.errors.emailRequired");
-          return !validateEmail(value)
-            ? t("contact.form.errors.emailInvalid")
-            : "";
+          if (!value.trim()) return v.emailRequired;
+          return !validateEmail(value) ? v.emailInvalid : "";
         case "phone":
-          if (!value.trim()) return t("contact.form.errors.phoneRequired");
-          return !validatePhone(value)
-            ? t("contact.form.errors.phoneInvalid")
-            : "";
+          if (!value.trim()) return v.phoneRequired;
+          return !validatePhone(value) ? v.phoneInvalid : "";
         case "message":
-          return value.trim().length < 10
-            ? t("contact.form.errors.message")
-            : "";
+          return value.trim().length < 10 ? v.msgMin10 : "";
         default:
           return "";
       }
     },
-    [t]
+    [v]
   );
 
   const handleChange = useCallback(
@@ -257,33 +341,29 @@ export default function ContactPage() {
         {/* Título */}
         <header className="text-center mb-12">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-            {t("contact.pageTitle")}
+            {i18nText.pageTitle}
           </h1>
+          {i18nText.pageDescription && (
+            <p className="mt-2 text-slate-600 dark:text-slate-300">
+              {i18nText.pageDescription}
+            </p>
+          )}
         </header>
 
-        <div className="grid lg:grid-cols-3 gap-12">
-          {/* Formulário */}
-          <div className="lg:col-span-2">
-            <div className="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8">
-              {submitStatus === "success" && (
-                <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg flex items-center text-green-800 dark:text-green-200 text-sm">
-                  <CheckCircle className="w-5 h-5 mr-3 flex-shrink-0" />
-                  <span>{t("contact.success")}</span>
-                </div>
-              )}
-
-              {submitStatus === "error" && (
-                <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center text-red-800 dark:text-red-200 text-sm">
-                  <AlertCircle className="w-5 h-5 mr-3 flex-shrink-0" />
-                  <span>{t("contact.error")}</span>
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit} noValidate className="space-y-6">
+        {/* GRID: itens esticam para igualar altura */}
+        <div className="grid lg:grid-cols-3 gap-12 items-stretch">
+          {/* Coluna do Formulário (2 colunas) */}
+          <div className="lg:col-span-2 flex h-full">
+            <div className="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 sm:p-8 flex flex-col h-full w-full">
+              <form
+                onSubmit={handleSubmit}
+                noValidate
+                className="space-y-6 flex-1 flex flex-col"
+              >
                 <div className="grid sm:grid-cols-2 gap-4">
                   <FormField
                     name="firstName"
-                    placeholder={t("contact.form.firstName")}
+                    placeholder={i18nText.firstNamePh}
                     value={formData.firstName}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -292,7 +372,7 @@ export default function ContactPage() {
                   />
                   <FormField
                     name="lastName"
-                    placeholder={t("contact.form.lastName")}
+                    placeholder={i18nText.lastNamePh}
                     value={formData.lastName}
                     onChange={handleChange}
                     onBlur={handleBlur}
@@ -304,7 +384,7 @@ export default function ContactPage() {
                 <FormField
                   type="email"
                   name="email"
-                  placeholder={t("contact.form.email")}
+                  placeholder={i18nText.emailPh}
                   value={formData.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -314,7 +394,7 @@ export default function ContactPage() {
                 <FormField
                   type="tel"
                   name="phone"
-                  placeholder={t("contact.form.phone")}
+                  placeholder={i18nText.phonePh}
                   value={formData.phone}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -324,7 +404,7 @@ export default function ContactPage() {
                 <FormField
                   type="textarea"
                   name="message"
-                  placeholder={t("contact.form.message")}
+                  placeholder={i18nText.messagePh}
                   value={formData.message}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -333,57 +413,66 @@ export default function ContactPage() {
                   required
                 />
 
-                <button
-                  type="submit"
-                  disabled={!isFormValid || isSubmitting}
-                  aria-busy={isSubmitting}
-                  className="w-full p-4 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-500 dark:to-indigo-600 text-white text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader className="w-5 h-5 animate-spin" />
-                      <span>{t("contact.form.sending")}</span>
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-5 h-5" />
-                      <span>{t("contact.form.send")}</span>
-                    </>
-                  )}
-                </button>
+                <div className="mt-auto">
+                  <button
+                    type="submit"
+                    disabled={!isFormValid || isSubmitting}
+                    aria-busy={isSubmitting}
+                    className="w-full p-4 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-700 dark:from-indigo-500 dark:to-indigo-600 text-white text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader className="w-5 h-5 animate-spin" />
+                        <span>{i18nText.sending}</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5" />
+                        <span>
+                          {language === "en"
+                            ? "Send message"
+                            : "Enviar Mensagem"}
+                        </span>
+                      </>
+                    )}
+                  </button>
+                </div>
               </form>
             </div>
           </div>
 
-          {/* Informações de Contato */}
-          <div className="space-y-8">
-            <div className="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6">
-              <h2 className="text-2xl font-semibold text-slate-800 dark:text-white mb-6 text-center">
-                {t("contact.otherContact")}
+          {/* Card "Outras formas de contato" (100% i18n) */}
+          <div className="flex h-full">
+            <div className="bg-white dark:bg-gray-800/50 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 p-6 flex flex-col h-full w-full">
+              <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-100 mb-6 text-center">
+                {i18nText.otherContactsTitle}
               </h2>
 
-              <div className="space-y-8">
-                <ContactIcon
+              <div className="flex-1 flex flex-col justify-center gap-10">
+                <ContactItem
                   icon={MapPin}
-                  title={t("contact.location")}
-                  subtitle={t("contact.locationValue")}
+                  title={i18nText.locationTitle}
+                  subtitle={i18nText.locationValue}
                   bgColor="bg-slate-600"
                 />
-                <ContactIcon
+
+                <ContactItem
                   icon={Mail}
-                  title={t("contact.email")}
+                  title={i18nText.emailTitle}
                   subtitle="jorge.juniortwo@hotmail.com"
                   href="mailto:jorge.juniortwo@hotmail.com"
                   bgColor="bg-indigo-600"
                 />
-                <ContactIcon
+
+                <ContactItem
                   icon={Phone}
-                  title={t("contact.whatsapp")}
+                  title={i18nText.whatsappTitle}
                   subtitle="(+55) 71 99289-6908"
                   href="https://wa.me/5571992896908"
                   bgColor="bg-emerald-600"
                 />
               </div>
+              <div className="pt-2" />
             </div>
           </div>
         </div>

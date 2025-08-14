@@ -1,0 +1,122 @@
+{
+  "brand": "JorgeOliveira",
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "portfolio": "Portfolio",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "hero": {
+    "hello": "Hello, it's me",
+    "name": "Jorge Oliveira",
+    "im": "And I'm a ",
+    "roles": [
+      "Front-End Developer",
+      "Back-End Developer",
+      "FullStack Developer"
+    ],
+    "pitch": "Each well-crafted application is a testament to how technology can positively transform lives.",
+    "aboutMe": "About Me",
+    "download": "Download Resume"
+  },
+  "about": {
+    "methodologiesTitle": "Methodologies & Management",
+    "methodologiesMeta": "Project Management & Agile Practices",
+    "frontendTitle": "Front-End",
+    "frontendMeta": "Two Years",
+    "designTitle": "Designer",
+    "designMeta": "Two Years",
+    "backendTitle": "Back-End",
+    "backendMeta": "Less than 1 year",
+    "toolsTitle": "Tools & Tests",
+    "toolsMeta": "In progress",
+    "cloudTitle": "Cloud & Deploy",
+    "cloudMeta": "In progress",
+    "methodologiesSkills": {
+      "scrum": "Scrum",
+      "kanban": "Kanban",
+      "agile": "Agile Development"
+    }
+  },
+  "services": {
+    "pageTitle": "How can I help your project",
+    "pageDescription": "Full-stack development focused on performance, accessibility and scale.",
+    "ariaLabel": "List of services offered",
+    "uiDesign": {
+      "title": "User Interface Design",
+      "subtitle": "Clean, accessible, and intuitive interfaces",
+      "description": "Figma interfaces with Design System, tokens and navigable prototypes. Organized hand-off for development, consistency and accessibility.",
+      "skills": ["Figma", "Design System", "Prototyping", "User Research"],
+      "experience": "1+ year",
+      "projects": "10+ designs",
+      "deliveryTime": "1–2 weeks",
+      "features": [
+        "Design System",
+        "Interactive Prototyping",
+        "Design Tokens",
+        "Grid and Typography",
+        "Figma Hand-off",
+        "Accessibility",
+        "Reusable Components"
+      ]
+    },
+    "fullstack": {
+      "title": "Full-Stack Development",
+      "subtitle": "Scalable web applications",
+      "description": "Front-end with Angular, React and Next.js; back-end with Node.js/Python. Focus on performance, SEO, accessibility (WCAG) and scalable architecture. API and database integration, CI/CD ready.",
+      "skills": ["Angular", "React", "Next.js", "TypeScript", "Node.js", "AWS"],
+      "experience": "2+ years",
+      "projects": "27+ projects",
+      "deliveryTime": "3–5 weeks",
+      "features": [
+        "Responsive design & Core Web Vitals",
+        "SEO for Next.js/Angular",
+        "Accessibility (WCAG AA)",
+        "REST/GraphQL integration",
+        "Authentication (JWT/OAuth)",
+        "Observability (logs/metrics)",
+        "CI/CD pipeline"
+      ]
+    },
+    "backend": {
+      "title": "Back-End Development",
+      "subtitle": "Fast, secure and well-documented APIs",
+      "description": "RESTful APIs in Node.js with PostgreSQL/MongoDB and caching, prioritizing security, scalability, and testing. OpenAPI/Swagger documentation and monitoring.",
+      "skills": ["Node.js", "Python", "PostgreSQL", "JWT"],
+      "experience": "1+ year",
+      "projects": "8+ projects",
+      "deliveryTime": "2–4 weeks",
+      "features": [
+        "Data modeling",
+        "Role-based access control (RBAC)",
+        "Validation & rate limiting",
+        "Swagger/OpenAPI",
+        "Cache/queues (Redis)",
+        "Workers/automation with Python(RPA)",
+        "Testing & tracing",
+        "Observability"
+      ]
+    }
+  },
+  "contact": {
+    "pageTitle": "Get in touch",
+    "pageDescription": "Contact me to start your project or ask questions.",
+    "form": {
+      "name": "Your name",
+      "email": "Your email",
+      "message": "Your message",
+      "send": "Send",
+      "sending": "Sending...",
+      "success": "Message sent successfully!",
+      "error": "An error occurred. Please try again."
+    },
+    "social": {
+      "title": "My networks",
+      "linkedin": "LinkedIn",
+      "github": "GitHub",
+      "whatsapp": "WhatsApp",
+      "email": "Email"
+    }
+  }
+}

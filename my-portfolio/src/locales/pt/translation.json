@@ -1,0 +1,122 @@
+{
+  "brand": "JorgeOliveira",
+  "nav": {
+    "home": "Início",
+    "about": "Sobre",
+    "portfolio": "Portfólio",
+    "services": "Serviços",
+    "contact": "Contato"
+  },
+  "hero": {
+    "hello": "Olá, sou eu",
+    "name": "Jorge Oliveira",
+    "im": "E eu sou ",
+    "roles": [
+      "Desenvolvedor Front-End",
+      "Desenvolvedor Back-End",
+      "Desenvolvedor FullStack"
+    ],
+    "pitch": "Cada aplicação bem construída é uma prova de como a tecnologia pode transformar vidas positivamente.",
+    "aboutMe": "Sobre mim",
+    "download": "Baixar Currículo"
+  },
+  "about": {
+    "methodologiesTitle": "Metodologias & Gestão",
+    "methodologiesMeta": "Gerenciamento de Projetos & Práticas Ágeis",
+    "frontendTitle": "Front-End",
+    "frontendMeta": "Dois anos",
+    "designTitle": "Designer",
+    "designMeta": "Dois anos",
+    "backendTitle": "Back-End",
+    "backendMeta": "Menos de 1 ano",
+    "toolsTitle": "Ferramentas & Testes",
+    "toolsMeta": "Em progresso",
+    "cloudTitle": "Nuvem & Deploy",
+    "cloudMeta": "Em progresso",
+    "methodologiesSkills": {
+      "scrum": "Scrum",
+      "kanban": "Kanban",
+      "agile": "Desenvolvimento Ágil"
+    }
+  },
+  "services": {
+    "pageTitle": "Como posso ajudar seu projeto",
+    "pageDescription": "Desenvolvimento full-stack com foco em performance, acessibilidade e escala.",
+    "ariaLabel": "Lista de serviços oferecidos",
+    "uiDesign": {
+      "title": "Design de Interface do Usuário",
+      "subtitle": "Interfaces limpas, acessíveis e intuitivas",
+      "description": "Interfaces no Figma com Design System, tokens e protótipos navegáveis. Hand-off organizado para desenvolvimento, consistência e acessibilidade.",
+      "skills": ["Figma", "Design System", "Prototipagem", "User Research"],
+      "experience": "1+ ano",
+      "projects": "10+ designs",
+      "deliveryTime": "1–2 semanas",
+      "features": [
+        "Design System",
+        "Prototipagem interativa",
+        "Tokens de design",
+        "Grid e tipografia",
+        "Hand-off no Figma",
+        "Acessibilidade",
+        "Componentes reutilizáveis"
+      ]
+    },
+    "fullstack": {
+      "title": "Desenvolvimento Full-Stack",
+      "subtitle": "Aplicações web completas que escalam",
+      "description": "Front-end com Angular, React e Next.js; back-end com Node.js/Python. Foco em performance, SEO, acessibilidade (WCAG) e arquitetura escalável. Integração de APIs e bancos de dados, pronto para CI/CD.",
+      "skills": ["Angular", "React", "Next.js", "TypeScript", "Node.js", "AWS"],
+      "experience": "2+ anos",
+      "projects": "27+ projetos",
+      "deliveryTime": "3–5 semanas",
+      "features": [
+        "Design responsivo e Core Web Vitals",
+        "SEO para Next.js/Angular",
+        "Acessibilidade (WCAG AA)",
+        "Integração REST/GraphQL",
+        "Autenticação (JWT/OAuth)",
+        "Observabilidade (logs/metrics)",
+        "Pipeline CI/CD"
+      ]
+    },
+    "backend": {
+      "title": "Desenvolvimento Back-end",
+      "subtitle": "APIs rápidas, seguras e bem documentadas",
+      "description": "RESTful APIs em Node.js com PostgreSQL/MongoDB e cache, priorizando segurança, escalabilidade e testes. Documentação OpenAPI/Swagger e monitoramento.",
+      "skills": ["Node.js", "Python", "PostgreSQL", "JWT"],
+      "experience": "1+ ano",
+      "projects": "8+ projetos",
+      "deliveryTime": "2–4 semanas",
+      "features": [
+        "Modelagem de dados",
+        "Autorização por papéis (RBAC)",
+        "Validação e rate limit",
+        "Swagger/OpenAPI",
+        "Cache/filas (Redis)",
+        "Workers/automação em Python(RPA)",
+        "Testes e tracing",
+        "Observabilidade"
+      ]
+    }
+  },
+  "contact": {
+    "pageTitle": "Entre em contato",
+    "pageDescription": "Fale comigo para iniciar seu projeto ou tirar dúvidas.",
+    "form": {
+      "name": "Seu nome",
+      "email": "Seu e-mail",
+      "message": "Sua mensagem",
+      "send": "Enviar",
+      "sending": "Enviando...",
+      "success": "Mensagem enviada com sucesso!",
+      "error": "Ocorreu um erro. Tente novamente."
+    },
+    "social": {
+      "title": "Minhas redes",
+      "linkedin": "LinkedIn",
+      "github": "GitHub",
+      "whatsapp": "WhatsApp",
+      "email": "E-mail"
+    }
+  }
+}
