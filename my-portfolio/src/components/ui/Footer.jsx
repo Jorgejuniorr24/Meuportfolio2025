@@ -1,22 +1,5 @@
-import React from "react";
 import { Github, Linkedin, ArrowUp } from "lucide-react";
-
-const SOCIAL_LINKS = [
-  {
-    name: "GitHub",
-    icon: Github,
-    url: "https://github.com/seu-usuario",
-    color: "hover:text-gray-300 hover:bg-gray-800 dark:text-[#60A5FA]",
-    ariaLabel: "Visite meu perfil no GitHub",
-  },
-  {
-    name: "LinkedIn",
-    icon: Linkedin,
-    url: "https://linkedin.com/in/seu-perfil",
-    color: "hover:text-blue-400 hover:bg-blue-950 dark:text-[#60A5FA]",
-    ariaLabel: "Conecte-se comigo no LinkedIn",
-  },
-];
+import { useI18n } from "../../contexts/I18nContext";
 
 const SocialLink = ({ icon: Icon, url, color, ariaLabel }) => (
   <a
@@ -32,13 +15,28 @@ const SocialLink = ({ icon: Icon, url, color, ariaLabel }) => (
 );
 
 const Footer = () => {
+  const { t, language } = useI18n();
   const currentYear = new Date().getFullYear();
 
+  const SOCIAL_LINKS = [
+    {
+      name: "GitHub",
+      icon: Github,
+      url: "https://github.com/seu-usuario",
+      color: "hover:text-gray-300 hover:bg-gray-800 dark:text-[#60A5FA]",
+      ariaLabel: t("footer.social.github"),
+    },
+    {
+      name: "LinkedIn",
+      icon: Linkedin,
+      url: "https://linkedin.com/in/seu-perfil",
+      color: "hover:text-blue-400 hover:bg-blue-950 dark:text-[#60A5FA]",
+      ariaLabel: t("footer.social.linkedin"),
+    },
+  ];
+
   return (
-    <footer
-      className="relative bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 text-white"
-      style={{ fontSize: "80%" }}
-    >
+    <footer className="relative bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 text-white">
       {/* Background decorativo */}
       <div className="absolute inset-0 opacity-40">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 to-purple-900/10"></div>
@@ -58,12 +56,10 @@ const Footer = () => {
         >
           <div className="max-w-4xl mx-auto text-center space-y-4">
             <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent mb-3">
-              Vamos criar algo incrível juntos?
+              {t("footer.callToAction.title")}
             </h2>
             <p className="text-base text-gray-300 leading-relaxed mb-4 max-w-2xl mx-auto">
-              Transforme suas ideias em soluções digitais inovadoras que
-              realmente se conectam com seu público e geram resultados
-              excepcionais.
+              {t("footer.callToAction.description")}
             </p>
 
             <a
@@ -72,14 +68,14 @@ const Footer = () => {
                          rounded-lg font-semibold text-white shadow-lg hover:shadow-xl transform hover:scale-105 
                          transition-all duration-300 group focus:outline-none focus:ring-4 focus:ring-blue-300"
             >
-              <span>Iniciar Projeto</span>
+              <span>{t("footer.callToAction.button")}</span>
               <ArrowUp className="ml-2 w-4 h-4 rotate-45 transition-transform group-hover:rotate-90" />
             </a>
 
             {/* Redes sociais */}
             <div className="pt-4">
               <h3 className="text-base font-semibold text-white mb-4">
-                Conecte-se comigo
+                {t("footer.social.title")}
               </h3>
               <div className="flex justify-center space-x-3">
                 {SOCIAL_LINKS.map((social) => (
@@ -93,8 +89,8 @@ const Footer = () => {
         {/* Rodapé inferior */}
         <div className="border-t border-gray-800 bg-gray-900/50 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-4 py-3 sm:px-6 lg:px-8 flex justify-center items-center">
-            <p className="text-sm" style={{ color: "#cfd1d7ff" }}>
-              &copy; {currentYear} Jorge Oliveira. Todos os direitos reservados.
+            <p className="text-sm text-gray-400">
+              &copy; {currentYear} Jorge Oliveira. {t("footer.copyright")}
             </p>
           </div>
         </div>

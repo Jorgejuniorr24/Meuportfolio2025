@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import {
   ChevronDown,
   Braces,
@@ -9,7 +10,6 @@ import {
 } from "lucide-react";
 import { useI18n } from "../../contexts/I18nContext";
 
-/* ------------ Progress bar ------------ */
 const ProgressItem = ({ label, value, delay = 0 }) => {
   const [animatedValue, setAnimatedValue] = useState(0);
 
@@ -47,6 +47,12 @@ const ProgressItem = ({ label, value, delay = 0 }) => {
       </div>
     </div>
   );
+};
+
+ProgressItem.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
+  delay: PropTypes.number,
 };
 
 /* ------------ Accordion ------------ */
@@ -103,6 +109,15 @@ const AccordionItem = ({
       </div>
     </div>
   );
+};
+
+AccordionItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  icon: PropTypes.elementType,
+  title: PropTypes.string.isRequired,
+  meta: PropTypes.string,
+  children: PropTypes.node,
+  defaultOpen: PropTypes.bool,
 };
 
 /* ------------ AboutMe ------------ */

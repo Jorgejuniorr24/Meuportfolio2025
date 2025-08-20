@@ -1,3 +1,5 @@
+// Botões de tradução
+
 import { useI18n } from "../../contexts/I18nContext";
 import brFlag from "../../assets/flags/br.svg";
 import usFlag from "../../assets/flags/us.svg";

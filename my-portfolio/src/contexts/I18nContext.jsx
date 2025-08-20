@@ -1,4 +1,5 @@
 // src/contexts/I18nContext.jsx
+// Contexto para gerenciar idioma
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const I18nContext = createContext(null);
@@ -44,6 +45,71 @@ const MESSAGES = {
         scrum: "Scrum",
         kanban: "Kanban",
         agile: "Desenvolvimento Ágil",
+      },
+    },
+    portfolio: {
+      pageTitle: "Meu Portfólio",
+      buttons: {
+        demo: "Demonstração",
+        github: "Ver Código",
+        caseStudy: "Estudo de Caso",
+      },
+      projects: {
+        fintech: {
+          title: "Dashboard FinTech",
+          description:
+            "Plataforma completa de gestão financeira com análise em tempo real, processamento alto e arquitetura de microsserviços.",
+        },
+        ecommerce: {
+          title: "Plataforma E-commerce",
+          description:
+            "Marketplace com pagamentos, logística inteligente e painel administrativo.",
+        },
+        restaurant: {
+          title: "Site para Restaurante",
+          description:
+            "Site responsivo para restaurante com reservas online e cardápio interativo.",
+        },
+        landing: {
+          title: "Landing Page",
+          description:
+            "Landing page de alta conversão com animações suaves, SEO e performance.",
+        },
+        finance: {
+          title: "App de Finanças Pessoais",
+          description:
+            "App de finanças pessoais com IA para categorização automática e relatórios.",
+        },
+        rpa: {
+          title: "Suíte de Automação RPA",
+          description:
+            "Automação robótica de processos para reduzir tempo em tarefas repetitivas.",
+        },
+        ai: {
+          title: "Atendimento com IA",
+          description:
+            "Chatbots para atendimento com PLN e aprendizado contínuo.",
+        },
+        medical: {
+          title: "ERP para Clínicas",
+          description:
+            "Gestão para clínicas: agenda, prontuário e faturamento.",
+        },
+        supply: {
+          title: "ERP de Suprimentos",
+          description:
+            "ERP para suprimentos com estoque inteligente e previsão de demanda.",
+        },
+        beauty: {
+          title: "Gestão para Salões",
+          description:
+            "Gestão para salões com agendamento online e controle de produtos.",
+        },
+        saas: {
+          title: "Plataforma Micro SaaS",
+          description:
+            "Criação e deploy de micro SaaS com billing automático e analytics.",
+        },
       },
     },
     services: {
@@ -130,6 +196,20 @@ const MESSAGES = {
         email: "E-mail",
       },
     },
+    footer: {
+      callToAction: {
+        title: "Vamos criar algo incrível juntos?",
+        description:
+          "Transforme suas ideias em soluções digitais inovadoras que realmente se conectam com seu público e geram resultados excepcionais.",
+        button: "Iniciar Projeto",
+      },
+      social: {
+        title: "Conecte-se comigo",
+        github: "Visite meu perfil no GitHub",
+        linkedin: "Conecte-se comigo no LinkedIn",
+      },
+      copyright: "Todos os direitos reservados.",
+    },
   },
   en: {
     brand: "JorgeOliveira",
@@ -141,9 +221,9 @@ const MESSAGES = {
       contact: "Contact",
     },
     hero: {
-      hello: "Hello, it’s me",
+      hello: "Hello, it's me",
       name: "Jorge Oliveira",
-      im: "And I’m a ",
+      im: "And I'm a ",
       roles: [
         "Front-End Developer",
         "Back-End Developer",
@@ -171,6 +251,71 @@ const MESSAGES = {
         scrum: "Scrum",
         kanban: "Kanban",
         agile: "Agile Development",
+      },
+    },
+    portfolio: {
+      pageTitle: "My Portfolio",
+      buttons: {
+        demo: "Demo",
+        github: "View Code",
+        caseStudy: "Case Study",
+      },
+      projects: {
+        fintech: {
+          title: "FinTech Dashboard",
+          description:
+            "Complete financial management platform with real-time analysis, high processing and microservices architecture.",
+        },
+        ecommerce: {
+          title: "E-commerce Platform",
+          description:
+            "Marketplace with payments, intelligent logistics and administrative panel.",
+        },
+        restaurant: {
+          title: "Restaurant Website",
+          description:
+            "Responsive restaurant website with online reservations and interactive menu.",
+        },
+        landing: {
+          title: "Landing Page",
+          description:
+            "High conversion landing page with smooth animations, SEO and performance.",
+        },
+        finance: {
+          title: "Personal Finance App",
+          description:
+            "Personal finance app with AI for automatic categorization and reports.",
+        },
+        rpa: {
+          title: "RPA Business Suite",
+          description:
+            "Robotic process automation to reduce time on repetitive tasks.",
+        },
+        ai: {
+          title: "AI Customer Service",
+          description:
+            "Chatbots for customer service with NLP and continuous learning.",
+        },
+        medical: {
+          title: "Medical Clinic ERP",
+          description:
+            "Clinic management: schedule, medical records and billing.",
+        },
+        supply: {
+          title: "Supply Chain ERP",
+          description:
+            "Supply ERP with intelligent inventory and demand forecasting.",
+        },
+        beauty: {
+          title: "Beauty Salon Manager",
+          description:
+            "Salon management with online scheduling and product control.",
+        },
+        saas: {
+          title: "Micro SaaS Platform",
+          description:
+            "Creation and deployment of micro SaaS with automatic billing and analytics.",
+        },
       },
     },
     services: {
@@ -257,30 +402,64 @@ const MESSAGES = {
         email: "Email",
       },
     },
+    footer: {
+      callToAction: {
+        title: "Let's create something amazing together?",
+        description:
+          "Transform your ideas into innovative digital solutions that truly connect with your audience and generate exceptional results.",
+        button: "Start Project",
+      },
+      social: {
+        title: "Connect with me",
+        github: "Visit my GitHub profile",
+        linkedin: "Connect with me on LinkedIn",
+      },
+      copyright: "All rights reserved.",
+    },
   },
 };
 
+import PropTypes from "prop-types";
+
 export function I18nProvider({ children }) {
-  const [language, setLanguage] = useState("pt");
+  const [language, setLanguage] = useState(() => {
+    // Tenta ler do localStorage apenas no cliente
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("lang");
+      return saved === "en" || saved === "pt" ? saved : "pt";
+    }
+    return "pt";
+  });
 
   useEffect(() => {
-    const saved = localStorage.getItem("lang");
-    if (saved === "pt" || saved === "en") setLanguage(saved);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("lang", language);
+    // Salva no localStorage apenas quando muda
+    if (typeof window !== "undefined") {
+      localStorage.setItem("lang", language);
+    }
   }, [language]);
 
   const t = useMemo(() => {
     const dict = MESSAGES[language] || MESSAGES.pt;
-    return (path) =>
-      path
-        .split(".")
-        .reduce(
-          (acc, key) => (acc && acc[key] != null ? acc[key] : path),
-          dict
-        );
+    return (path) => {
+      try {
+        const keys = path.split(".");
+        let result = dict;
+
+        for (const key of keys) {
+          if (result && typeof result === "object" && key in result) {
+            result = result[key];
+          } else {
+            console.warn(`Translation key not found: ${path}`);
+            return path; // Retorna a chave se não encontrar a tradução
+          }
+        }
+
+        return result;
+      } catch (error) {
+        console.error(`Error translating ${path}:`, error);
+        return path;
+      }
+    };
   }, [language]);
 
   const value = useMemo(
@@ -290,6 +469,10 @@ export function I18nProvider({ children }) {
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }
+
+I18nProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export function useI18n() {
   const ctx = useContext(I18nContext);

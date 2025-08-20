@@ -39,6 +39,60 @@
       "agile": "Agile Development"
     }
   },
+  "portfolio": {
+    "pageTitle": "My Portfolio",
+    "buttons": {
+      "demo": "Demo",
+      "github": "View Code",
+      "caseStudy": "Case Study"
+    },
+    "projects": {
+      "fintech": {
+        "title": "FinTech Dashboard",
+        "description": "Complete financial management platform with real-time analysis, high processing, and microservices architecture."
+      },
+      "ecommerce": {
+        "title": "E-commerce Platform",
+        "description": "Marketplace with payments, intelligent logistics, and administrative panel."
+      },
+      "restaurant": {
+        "title": "Restaurant Website",
+        "description": "Responsive restaurant website with online reservations and interactive menu."
+      },
+      "landing": {
+        "title": "Landing Page",
+        "description": "High conversion landing page with smooth animations, SEO, and performance."
+      },
+      "finance": {
+        "title": "Personal Finance App",
+        "description": "Personal finance app with AI for automatic categorization and reports."
+      },
+      "rpa": {
+        "title": "RPA Business Suite",
+        "description": "Robotic process automation to reduce time on repetitive tasks."
+      },
+      "ai": {
+        "title": "AI Customer Service",
+        "description": "Chatbots for customer service with NLP and continuous learning."
+      },
+      "medical": {
+        "title": "Medical Clinic ERP",
+        "description": "Clinic management: schedule, medical records, and billing."
+      },
+      "supply": {
+        "title": "Supply Chain ERP",
+        "description": "Supply ERP with intelligent inventory and demand forecasting."
+      },
+      "beauty": {
+        "title": "Beauty Salon Manager",
+        "description": "Salon management with online scheduling and product control."
+      },
+      "saas": {
+        "title": "Micro SaaS Platform",
+        "description": "Creation and deployment of micro SaaS with automatic billing and analytics."
+      }
+    }
+  },
   "services": {
     "pageTitle": "How can I help your project",
     "pageDescription": "Full-stack development focused on performance, accessibility and scale.",
@@ -118,5 +172,11 @@
       "whatsapp": "WhatsApp",
       "email": "Email"
     }
+  },
+  "footer": {
+    "copyright": "© 2025 Jorge Oliveira. All rights reserved.",
+    "contact": "Contact",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
   }
 }
