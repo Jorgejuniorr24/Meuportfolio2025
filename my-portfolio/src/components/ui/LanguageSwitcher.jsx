@@ -4,6 +4,8 @@ import { useI18n } from "../../contexts/I18nContext";
 import brFlag from "../../assets/flags/br.svg";
 import usFlag from "../../assets/flags/us.svg";
 
+import PropTypes from "prop-types";
+
 const FlagButton = ({ src, alt, active, onClick }) => (
   <button
     type="button"
@@ -37,6 +39,13 @@ const FlagButton = ({ src, alt, active, onClick }) => (
     />
   </button>
 );
+
+FlagButton.propTypes = {
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  active: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 const LanguageSwitcher = () => {
   const { language, setLanguage } = useI18n();

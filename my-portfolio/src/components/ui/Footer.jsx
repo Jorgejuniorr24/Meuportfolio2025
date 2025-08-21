@@ -1,5 +1,6 @@
 import { Github, Linkedin, ArrowUp } from "lucide-react";
 import { useI18n } from "../../contexts/I18nContext";
+import PropTypes from "prop-types";
 
 const SocialLink = ({ icon: Icon, url, color, ariaLabel }) => (
   <a
@@ -15,21 +16,21 @@ const SocialLink = ({ icon: Icon, url, color, ariaLabel }) => (
 );
 
 const Footer = () => {
-  const { t, language } = useI18n();
+  const { t } = useI18n();
   const currentYear = new Date().getFullYear();
 
   const SOCIAL_LINKS = [
     {
       name: "GitHub",
       icon: Github,
-      url: "https://github.com/seu-usuario",
+      url: "https://github.com/Jorgejuniorr24",
       color: "hover:text-gray-300 hover:bg-gray-800 dark:text-[#60A5FA]",
       ariaLabel: t("footer.social.github"),
     },
     {
       name: "LinkedIn",
       icon: Linkedin,
-      url: "https://linkedin.com/in/seu-perfil",
+      url: "https://www.linkedin.com/in/dev-jorge-oliveira/",
       color: "hover:text-blue-400 hover:bg-blue-950 dark:text-[#60A5FA]",
       ariaLabel: t("footer.social.linkedin"),
     },
@@ -97,6 +98,12 @@ const Footer = () => {
       </div>
     </footer>
   );
+};
+SocialLink.propTypes = {
+  icon: PropTypes.elementType.isRequired,
+  url: PropTypes.string.isRequired,
+  color: PropTypes.string,
+  ariaLabel: PropTypes.string.isRequired,
 };
 
 export default Footer;

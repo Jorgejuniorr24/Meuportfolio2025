@@ -60,15 +60,15 @@ const Hero = () => {
             </a>
 
             <a
-              href="/curriculo.pdf"
+              href="/CV%20-%20JorgeOliveira-%20FullStack.pdf"
               download
               className="px-5 py-2 rounded-md 
-                         bg-[#1a1a1a] dark:bg-[#3DD9C1] 
-                         text-white dark:text-black text-sm font-semibold 
-                         shadow-md hover:shadow-lg
-                         hover:bg-gray-800 dark:hover:bg-[#2ab3a1] 
-                         transform hover:scale-105 
-                         transition-all duration-300 text-center"
+             bg-[#1a1a1a] dark:bg-[#3DD9C1] 
+             text-white dark:text-black text-sm font-semibold 
+             shadow-md hover:shadow-lg
+             hover:bg-gray-800 dark:hover:bg-[#2ab3a1] 
+             transform hover:scale-105 
+             transition-all duration-300 text-center"
             >
               {t("hero.download")}
             </a>

@@ -4,7 +4,7 @@ const SocialIcons = () => {
   return (
     <div className="flex gap-6 pt-6">
       <a
-        href="https://github.com/seu-usuario"
+        href="https://github.com/Jorgejuniorr24"
         target="_blank"
         rel="noreferrer"
         className="text-gray-700 dark:text-blue-400 
@@ -14,7 +14,7 @@ const SocialIcons = () => {
         <Github size={28} />
       </a>
       <a
-        href="https://linkedin.com/in/seu-perfil"
+        href="https://www.linkedin.com/in/dev-jorge-oliveira/"
         target="_blank"
         rel="noreferrer"
         className="text-gray-700 dark:text-blue-400 
@@ -24,7 +24,7 @@ const SocialIcons = () => {
         <Linkedin size={28} />
       </a>
       <a
-        href="https://instagram.com/seu-usuario"
+        href="https://www.instagram.com/jorgejuniorr24/"
         target="_blank"
         rel="noreferrer"
         className="text-gray-700 dark:text-blue-400 
