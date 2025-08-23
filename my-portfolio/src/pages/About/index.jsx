@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import {
   ChevronDown,
@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useI18n } from "../../contexts/I18nContext";
 
+// Progress bar item for skills
 const ProgressItem = ({ label, value, delay = 0 }) => {
   const [animatedValue, setAnimatedValue] = useState(0);
 
@@ -55,7 +56,7 @@ ProgressItem.propTypes = {
   delay: PropTypes.number,
 };
 
-/* ------------ Accordion ------------ */
+// Accordion component for showing categories
 const AccordionItem = ({
   id,
   icon: Icon,
@@ -120,12 +121,11 @@ AccordionItem.propTypes = {
   defaultOpen: PropTypes.bool,
 };
 
-/* ------------ AboutMe ------------ */
 const AboutMe = () => {
   const { t, language } = useI18n();
 
   // helper de tradução com fallback
-  const tr = React.useCallback(
+  const tr = useCallback(
     (key, fallback) => {
       const val = t(key);
       return val === key ? fallback : val;
@@ -139,16 +139,8 @@ const AboutMe = () => {
     en: `I'm Jorge Oliveira, a full-stack developer from Salvador, Bahia, Brazil, passionate about building modern, high-performance web solutions that deliver exceptional user experiences. I hold degrees in Production Engineering and Systems Analysis and Development, as well as an MBA in Project Management. I have solid experience on the front-end with HTML, CSS, JavaScript/TypeScript, Angular, React, Next.js, TailwindCSS, and Bootstrap, crafting responsive, accessible, and visually engaging interfaces. On the back-end, I have working knowledge of Python, Node.js, SQL, and RESTful API integration, and I'm continuously improving my skills to design clean, secure, and scalable architectures. I apply Jest and Cypress to ensure code quality and reliability, while actively studying AWS and gaining hands-on experience with web application deployment and CI/CD pipelines. I'm proficient in Git and GitHub for version control, and use Figma to design intuitive user interfaces. My goal is to turn ideas into efficient, well-structured digital solutions that grow alongside the business, combining technical expertise, attention to detail, and a strong commitment to excellence.`,
   };
 
-  /* ========= ORDEM SOLICITADA =========
-     1) Front-End
-     2) Back-End
-     3) Designer
-     4) Metodologias
-     5) Ferramentas
-     6) Nuvem
-  ===================================== */
+  // Categorias de habilidades
   const categories = [
-    // 1) FRONT-END
     {
       id: "frontend",
       icon: Braces,
@@ -170,7 +162,6 @@ const AboutMe = () => {
         { label: "Angular", value: 40 },
       ],
     },
-    // 2) BACK-END
     {
       id: "backend",
       icon: Server,
@@ -189,7 +180,6 @@ const AboutMe = () => {
         { label: "REST APIs", value: 50 },
       ],
     },
-    // 3) DESIGNER
     {
       id: "design",
       icon: Palette,
@@ -208,7 +198,6 @@ const AboutMe = () => {
         { label: "Responsive Design", value: 100 },
       ],
     },
-    // 4) METODOLOGIAS
     {
       id: "methodologies",
       icon: Wrench,
@@ -237,7 +226,6 @@ const AboutMe = () => {
       ],
       defaultOpen: false,
     },
-    // 5) FERRAMENTAS
     {
       id: "tools",
       icon: Wrench,
@@ -256,7 +244,6 @@ const AboutMe = () => {
         { label: "Cypress", value: 10 },
       ],
     },
-    // 6) NUVEM
     {
       id: "cloud",
       icon: Cloud,
@@ -306,33 +293,27 @@ const AboutMe = () => {
                 defaultOpen={Boolean(cat.defaultOpen)}
               >
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {cat.skills.map((s, i) => (
-                    <ProgressItem
-                      key={s.label}
-                      label={s.label}
-                      value={s.value}
-                      delay={i * 120}
-                    />
-                  ))}
+                  {cat.skills
+                    .sort((a, b) => a.value - b.value) // Ordena do menor para o maior valor
+                    .map((s, i) => (
+                      <ProgressItem
+                        key={s.label}
+                        label={s.label}
+                        value={s.value}
+                        delay={i * 120}
+                      />
+                    ))}
                 </div>
               </AccordionItem>
             ))}
           </div>
 
-          {/* Legend */}
+          {/* Legend - Reordenada do menor para o maior */}
           <div className="mt-8 text-center">
             <div className="inline-flex items-center gap-6 text-sm text-slate-600 dark:text-slate-400">
               <div className="flex items-center gap-2">
-                <div className="w-4 h-2 rounded-full bg-emerald-500"></div>
-                <span>
-                  {language === "pt" ? "Especialista (90%+)" : "Expert (90%+)"}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-2 rounded-full bg-blue-500"></div>
-                <span>
-                  {language === "pt" ? "Avançado (70%+)" : "Advanced (70%+)"}
-                </span>
+                <div className="w-4 h-2 rounded-full bg-slate-400"></div>
+                <span>{language === "pt" ? "Aprendendo" : "Learning"}</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-4 h-2 rounded-full bg-amber-500"></div>
@@ -343,8 +324,16 @@ const AboutMe = () => {
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-4 h-2 rounded-full bg-slate-400"></div>
-                <span>{language === "pt" ? "Aprendendo" : "Learning"}</span>
+                <div className="w-4 h-2 rounded-full bg-blue-500"></div>
+                <span>
+                  {language === "pt" ? "Avançado (70%+)" : "Advanced (70%+)"}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-4 h-2 rounded-full bg-emerald-500"></div>
+                <span>
+                  {language === "pt" ? "Especialista (90%+)" : "Expert (90%+)"}
+                </span>
               </div>
             </div>
           </div>

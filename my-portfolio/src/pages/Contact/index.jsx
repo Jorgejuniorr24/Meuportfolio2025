@@ -300,14 +300,17 @@ export default function ContactPage() {
     return hasAll && noErrors;
   }, [formData, errors]);
 
+  // ✨ INTEGRAÇÃO COM FORMSPREE ✨
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validação dos campos
     const newErrors = {};
     Object.keys(formData).forEach((key) => {
       const error = validateField(key, formData[key]);
       if (error) newErrors[key] = error;
     });
+
     if (Object.keys(newErrors).length) {
       setErrors(newErrors);
       return;
@@ -317,19 +320,45 @@ export default function ContactPage() {
     setSubmitStatus(null);
 
     try {
-      await new Promise((r) => setTimeout(r, 2000));
-      setSubmitStatus("success");
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        message: "",
+      // Preparar dados para o Formspree
+      const formPayload = {
+        name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        // Campos extras para organização
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        // Adicionar idioma para contexto
+        language: language,
+      };
+
+      // Enviar para o Formspree
+      const response = await fetch("https://formspree.io/f/mjkonldq", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formPayload),
       });
-      setErrors({});
-    } catch (err) {
+
+      if (response.ok) {
+        setSubmitStatus("success");
+        // Limpar formulário após sucesso
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+        setErrors({});
+      } else {
+        throw new Error(`HTTP ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Erro ao enviar formulário:", error);
       setSubmitStatus("error");
-      console.error("Erro ao enviar formulário:", err);
     } finally {
       setIsSubmitting(false);
     }
@@ -349,6 +378,32 @@ export default function ContactPage() {
             </p>
           )}
         </header>
+
+        {/* Mensagens de Status */}
+        {submitStatus && (
+          <div className="mb-6">
+            {submitStatus === "success" && (
+              <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+                <div className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
+                  <p className="text-green-800 dark:text-green-200">
+                    {i18nText.successMsg}
+                  </p>
+                </div>
+              </div>
+            )}
+            {submitStatus === "error" && (
+              <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+                <div className="flex items-center">
+                  <AlertCircle className="w-5 h-5 text-red-500 mr-3" />
+                  <p className="text-red-800 dark:text-red-200">
+                    {i18nText.errorMsg}
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* GRID: itens esticam para igualar altura */}
         <div className="grid lg:grid-cols-3 gap-12 items-stretch">
