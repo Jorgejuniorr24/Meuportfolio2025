@@ -59,9 +59,6 @@ const Footer = () => {
             <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent mb-2">
               {t("footer.callToAction.title")}
             </h2>
-            <p className="text-sm sm:text-base text-gray-300 leading-relaxed mb-3 max-w-xl mx-auto">
-              {t("footer.callToAction.description")}
-            </p>
 
             <a
               href="#contact"

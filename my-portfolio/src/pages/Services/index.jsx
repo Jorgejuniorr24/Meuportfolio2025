@@ -14,7 +14,7 @@ import {
   Server,
 } from "lucide-react";
 import PropTypes from "prop-types";
-import { useI18n } from "../../contexts/I18nContext"; // ajuste o caminho conforme sua estrutura
+import { useI18n } from "../../contexts/I18nContext";
 
 /* =========================
    DATA (ORDENADO)
@@ -23,96 +23,42 @@ import { useI18n } from "../../contexts/I18nContext"; // ajuste o caminho confor
 const getServices = (t, language) => [
   {
     id: "ui-design",
-    title: t("services.uiDesign.title") || "Design de Interface do Usuário",
-    subtitle:
-      t("services.uiDesign.subtitle") ||
-      "Interfaces limpas, acessíveis e intuitivas",
-    description:
-      t("services.uiDesign.description") ||
-      "Interfaces no Figma com Design System, tokens e protótipos navegáveis. Hand-off organizado para desenvolvimento, consistência e acessibilidade.",
+    title: t("services.uiDesign.title"),
+    subtitle: t("services.uiDesign.subtitle"),
+    description: t("services.uiDesign.description"),
     icon: Palette,
     color: "purple",
-    skills: t("services.uiDesign.skills") || [
-      "Figma",
-      "Design System",
-      "Prototipagem",
-      "User Research",
-    ],
-    experience: t("services.uiDesign.experience") || "1+ ano",
-    projects: t("services.uiDesign.projects") || "10+ designs",
-    deliveryTime: t("services.uiDesign.deliveryTime") || "1–2 semanas",
-    features: t("services.uiDesign.features") || [
-      "Design System",
-      "Prototipagem interativa",
-      "Tokens de design",
-      "Grid e tipografia",
-      "Hand-off no Figma",
-      "Acessibilidade",
-      "Componentes reutilizáveis",
-    ],
+    skills: t("services.uiDesign.skills", { returnObjects: true }),
+    experience: t("services.uiDesign.experience"),
+    projects: t("services.uiDesign.projects"),
+    deliveryTime: t("services.uiDesign.deliveryTime"),
+    features: t("services.uiDesign.features", { returnObjects: true }),
   },
   {
     id: "fullstack-development",
-    title: t("services.fullstack.title") || "Desenvolvimento Full-Stack",
-    subtitle:
-      t("services.fullstack.subtitle") ||
-      "Aplicações web completas que escalam",
-    description:
-      t("services.fullstack.description") ||
-      "Front-end com Angular, React e Next.js; back-end com Node.js/Python. Foco em performance, SEO, acessibilidade (WCAG) e arquitetura escalável. Integração de APIs e bancos de dados, pronto para CI/CD.",
+    title: t("services.fullstack.title"),
+    subtitle: t("services.fullstack.subtitle"),
+    description: t("services.fullstack.description"),
     icon: Code2,
     color: "blue",
-    skills: t("services.fullstack.skills") || [
-      "Angular",
-      "React",
-      "Next.js",
-      "TypeScript",
-      "Node.js",
-      "AWS",
-    ],
-    experience: t("services.fullstack.experience") || "2+ anos",
-    projects: t("services.fullstack.projects") || "27+ projetos",
-    deliveryTime: t("services.fullstack.deliveryTime") || "3–5 semanas",
-    features: t("services.fullstack.features") || [
-      "Design responsivo e Core Web Vitals",
-      "SEO para Next.js/Angular",
-      "Acessibilidade (WCAG AA)",
-      "Integração REST/GraphQL",
-      "Autenticação (JWT/OAuth)",
-      "Observabilidade (logs/metrics)",
-      "Pipeline CI/CD",
-    ],
+    skills: t("services.fullstack.skills", { returnObjects: true }),
+    experience: t("services.fullstack.experience"),
+    projects: t("services.fullstack.projects"),
+    deliveryTime: t("services.fullstack.deliveryTime"),
+    features: t("services.fullstack.features", { returnObjects: true }),
   },
   {
     id: "backend-development",
-    title: t("services.backend.title") || "Desenvolvimento Back-end",
-    subtitle:
-      t("services.backend.subtitle") ||
-      "APIs rápidas, seguras e bem documentadas",
-    description:
-      t("services.backend.description") ||
-      "RESTful APIs em Node.js com PostgreSQL/MongoDB e cache, priorizando segurança, escalabilidade e testes. Documentação OpenAPI/Swagger e monitoramento.",
+    title: t("services.backend.title"),
+    subtitle: t("services.backend.subtitle"),
+    description: t("services.backend.description"),
     icon: Server,
     color: "green",
-    skills: t("services.backend.skills") || [
-      "Node.js",
-      "Python",
-      "PostgreSQL",
-      "JWT",
-    ],
-    experience: t("services.backend.experience") || "1+ ano",
-    projects: t("services.backend.projects") || "8+ projetos",
-    deliveryTime: t("services.backend.deliveryTime") || "2–4 semanas",
-    features: t("services.backend.features") || [
-      "Modelagem de dados",
-      "Autorização por papéis (RBAC)",
-      "Validação e rate limit",
-      "Swagger/OpenAPI",
-      "Cache/filas (Redis)",
-      "Workers/automação em Python(RPA)",
-      "Testes e tracing",
-      "Observabilidade",
-    ],
+    skills: t("services.backend.skills", { returnObjects: true }),
+    experience: t("services.backend.experience"),
+    projects: t("services.backend.projects"),
+    deliveryTime: t("services.backend.deliveryTime"),
+    features: t("services.backend.features", { returnObjects: true }),
   },
 ];
 
@@ -243,7 +189,7 @@ const ServiceCard = memo(({ service, isActive, onHover, onLeave, index }) => {
       onMouseEnter={() => onHover(service.id)}
       onMouseLeave={onLeave}
       className={`h-full flex flex-col relative p-6 rounded-xl border-2 bg-white dark:bg-gray-800
-        transition-all duration-300 group
+        transition-all duration-300 group cursor-pointer
         ${theme.border} ${theme.bg}
         ${
           isActive
@@ -251,9 +197,12 @@ const ServiceCard = memo(({ service, isActive, onHover, onLeave, index }) => {
             : "shadow-md hover:shadow-lg"
         }
         ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}
-        focus:outline-none
+        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2
       `}
       style={{ transitionDelay: `${index * 100}ms` }}
+      tabIndex="0"
+      role="button"
+      aria-label={`Serviço: ${service.title}`}
     >
       {/* Header */}
       <header className="flex items-start justify-between mb-4">
@@ -286,7 +235,7 @@ const ServiceCard = memo(({ service, isActive, onHover, onLeave, index }) => {
       {/* Features */}
       <div className="mb-6">
         <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3 uppercase tracking-wide">
-          {service.featuresTitle || "Incluído:"}
+          Incluído:
         </h4>
         <FeatureList features={service.features} />
       </div>
@@ -294,7 +243,7 @@ const ServiceCard = memo(({ service, isActive, onHover, onLeave, index }) => {
       {/* Skills */}
       <div className="mt-auto">
         <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3 uppercase tracking-wide">
-          {service.skillsTitle || "Tecnologias:"}
+          Tecnologias:
         </h4>
         <div className="flex flex-wrap gap-2">
           {service.skills.slice(0, 6).map((skill, i) => (
@@ -327,8 +276,6 @@ const Services = memo(() => {
   const [hoveredService, setHoveredService] = useState(null);
   const [headerRef, isHeaderVisible] = useIntersectionObserver();
   const { trackServiceView } = useServiceAnalytics();
-
-  // Aqui uso o I18n para pegar função t e idioma atual
   const { t, language } = useI18n();
 
   const handleServiceHover = useCallback(
@@ -341,7 +288,6 @@ const Services = memo(() => {
 
   const handleServiceLeave = useCallback(() => setHoveredService(null), []);
 
-  // Gera serviços já traduzidos conforme o idioma
   const servicesOrdered = useMemo(
     () => getServices(t, language),
     [t, language]

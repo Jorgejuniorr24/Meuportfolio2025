@@ -109,17 +109,16 @@
         "Design System",
         "Prototipagem interativa",
         "Tokens de design",
-        "Grid e tipografia",
-        "Hand-off no Figma",
         "Acessibilidade",
-        "Componentes reutilizáveis"
+        "Componentes reutilizáveis",
+        "Validação com usuários"
       ]
     },
     "fullstack": {
       "title": "Desenvolvimento Full-Stack",
       "subtitle": "Aplicações web completas que escalam",
-      "description": "Front-end com Angular, React e Next.js; back-end com Node.js/Python. Foco em performance, SEO, acessibilidade (WCAG) e arquitetura escalável. Integração de APIs e bancos de dados, pronto para CI/CD.",
-      "skills": ["Angular", "React", "Next.js", "TypeScript", "Node.js", "AWS"],
+      "description": "Front-end com Angular, React e Next.js; back-end com Node.js. Foco em performance, SEO, acessibilidade (WCAG) e arquitetura escalável. Integração de APIs e bancos de dados.",
+      "skills": ["Angular", "React", "Next.js", "TypeScript", "Node.js"],
       "experience": "2+ anos",
       "projects": "27+ projetos",
       "deliveryTime": "3–5 semanas",
@@ -129,30 +128,26 @@
         "Acessibilidade (WCAG AA)",
         "Integração REST/GraphQL",
         "Autenticação (JWT/OAuth)",
-        "Observabilidade (logs/metrics)",
-        "Pipeline CI/CD"
+        "Deploy com Vercel / Netlify"
       ]
     },
     "backend": {
       "title": "Desenvolvimento Back-end",
-      "subtitle": "APIs rápidas, seguras e bem documentadas",
-      "description": "RESTful APIs em Node.js com PostgreSQL/MongoDB e cache, priorizando segurança, escalabilidade e testes. Documentação OpenAPI/Swagger e monitoramento.",
-      "skills": ["Node.js", "Python", "PostgreSQL", "JWT"],
+      "subtitle": "APIs simples e confiáveis",
+      "description": "APIs REST básicas em Node.js com PostgreSQL. Desenvolvimento de serviços web funcionais com autenticação JWT, validações e estrutura organizada. Foco em código limpo e boas práticas fundamentais.",
+      "skills": ["Node.js", "Express", "PostgreSQL", "JWT"],
       "experience": "1+ ano",
       "projects": "8+ projetos",
       "deliveryTime": "2–4 semanas",
       "features": [
-        "Modelagem de dados",
-        "Autorização por papéis (RBAC)",
-        "Validação e rate limit",
-        "Swagger/OpenAPI",
-        "Cache/filas (Redis)",
-        "Workers/automação em Python(RPA)",
-        "Testes e tracing",
-        "Observabilidade"
+        "CRUD básico",
+        "Autenticação JWT",
+        "Validação de dados",
+        "Tratamento de erros"
       ]
     }
   },
+
   "contact": {
     "pageTitle": "Entre em contato",
     "pageDescription": "Fale comigo para iniciar seu projeto ou tirar dúvidas.",
@@ -174,9 +169,15 @@
     }
   },
   "footer": {
-    "copyright": "© 2025 Jorge Oliveira. Todos os direitos reservados.",
-    "contact": "Contato",
-    "privacy": "Política de Privacidade",
-    "terms": "Termos de Serviço"
+    "callToAction": {
+      "title": "Vamos criar algo incrível juntos?",
+      "button": "Entre em contato"
+    },
+    "social": {
+      "title": "Minhas redes",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    },
+    "copyright": "Todos os direitos reservados."
   }
 }

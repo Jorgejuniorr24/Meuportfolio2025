@@ -109,17 +109,16 @@
         "Design System",
         "Interactive Prototyping",
         "Design Tokens",
-        "Grid and Typography",
-        "Figma Hand-off",
         "Accessibility",
-        "Reusable Components"
+        "Reusable Components",
+        "User Testing"
       ]
     },
     "fullstack": {
       "title": "Full-Stack Development",
       "subtitle": "Scalable web applications",
-      "description": "Front-end with Angular, React and Next.js; back-end with Node.js/Python. Focus on performance, SEO, accessibility (WCAG) and scalable architecture. API and database integration, CI/CD ready.",
-      "skills": ["Angular", "React", "Next.js", "TypeScript", "Node.js", "AWS"],
+      "description": "Front-end with Angular, React and Next.js; back-end with Node.js. Focus on performance, SEO, accessibility (WCAG) and scalable architecture. API and database integration.",
+      "skills": ["Angular", "React", "Next.js", "TypeScript", "Node.js"],
       "experience": "2+ years",
       "projects": "27+ projects",
       "deliveryTime": "3–5 weeks",
@@ -128,31 +127,26 @@
         "SEO for Next.js/Angular",
         "Accessibility (WCAG AA)",
         "REST/GraphQL integration",
-        "Authentication (JWT/OAuth)",
-        "Observability (logs/metrics)",
-        "CI/CD pipeline"
+        "Authentication (JWT/OAuth)"
       ]
     },
     "backend": {
       "title": "Back-End Development",
       "subtitle": "Fast, secure and well-documented APIs",
-      "description": "RESTful APIs in Node.js with PostgreSQL/MongoDB and caching, prioritizing security, scalability, and testing. OpenAPI/Swagger documentation and monitoring.",
-      "skills": ["Node.js", "Python", "PostgreSQL", "JWT"],
+      "description": "Basic REST APIs in Node.js with PostgreSQL. Development of functional web services with JWT authentication, validations, and organized structure. Focus on clean code and fundamental best practices.",
+      "skills": ["Node.js", "Express", "PostgreSQL", "JWT"],
       "experience": "1+ year",
       "projects": "8+ projects",
       "deliveryTime": "2–4 weeks",
       "features": [
-        "Data modeling",
-        "Role-based access control (RBAC)",
-        "Validation & rate limiting",
-        "Swagger/OpenAPI",
-        "Cache/queues (Redis)",
-        "Workers/automation with Python(RPA)",
-        "Testing & tracing",
-        "Observability"
+        "Basic CRUD",
+        "JWT Authentication",
+        "Data Validation",
+        "Error Handling"
       ]
     }
   },
+
   "contact": {
     "pageTitle": "Get in touch",
     "pageDescription": "Contact me to start your project or ask questions.",
@@ -174,9 +168,15 @@
     }
   },
   "footer": {
-    "copyright": "© 2025 Jorge Oliveira. All rights reserved.",
-    "contact": "Contact",
-    "privacy": "Privacy Policy",
-    "terms": "Terms of Service"
+    "callToAction": {
+      "title": "Let's build something amazing together?",
+      "button": "Get in touch"
+    },
+    "social": {
+      "title": "My networks",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
+    },
+    "copyright": " All rights reserved."
   }
 }
